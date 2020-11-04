@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<h2>Tạo Phân Loại</h2>
+<form asp-action="Upsert">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row align-items-center">
+        <div class="col-md-7 offset-md-2">
+            <div class="form-group">
+                <label>Mã Phân loại</label>
+                <input type="text" class="form-control" name="ma_phan_loai"/>
+            </div>
+            <div class="form-group">
+                <label>Tên Phân loại</label>
+                <input type="text" class="form-control" name="ten_phan_loai" />
+            </div>
+            <input type="submit" value="Khởi tạo" class="btn btn-outline-secondary form-control" />
+        </div>
+    </div>
+</form>
