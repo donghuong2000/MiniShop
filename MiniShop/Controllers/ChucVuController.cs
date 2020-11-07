@@ -22,9 +22,19 @@ namespace MiniShop.Controllers
         {
             return View();
         }
-        public IActionResult Upsert()
+        public IActionResult Upsert(string ma_chuc_vu,string ten_chuc_vu,int luong)
         {
-            return View();
+            var parameter = new DynamicParameters();
+            parameter.Add("@MA_CHUC_VU", ma_chuc_vu);
+            parameter.Add("@TEN_CHUC_VU", ten_chuc_vu);
+            parameter.Add("@LUONG", luong);
+            var result = _unitOfWork.SP_Call.Excute(SD.Chuc_vu.CREATE, parameter);
+            if (result.success)
+            {
+                return Json(new { success = true, message = "tạo chức vụ thành công" });
+            }
+            else
+                return Json(new { success = false, message = result.message });
         }
 
         public IActionResult GetAll()
