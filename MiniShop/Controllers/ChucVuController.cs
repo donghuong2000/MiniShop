@@ -22,6 +22,12 @@ namespace MiniShop.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult Upsert()
+        {
+            return View();
+        }
+        [HttpPost]
         public IActionResult Upsert(string ma_chuc_vu,string ten_chuc_vu,int luong)
         {
             var parameter = new DynamicParameters();
@@ -31,10 +37,15 @@ namespace MiniShop.Controllers
             var result = _unitOfWork.SP_Call.Excute(SD.Chuc_vu.CREATE, parameter);
             if (result.success)
             {
-                return Json(new { success = true, message = "tạo chức vụ thành công" });
+                return RedirectToAction(nameof(Index));
             }
             else
-                return Json(new { success = false, message = result.message });
+            {
+                if (result.message.Contains("duplicate"))
+                    result.message = "Chức vụ đã tồn tại";
+                ModelState.AddModelError("", result.message);
+            }
+            return View();
         }
 
         public IActionResult GetAll()

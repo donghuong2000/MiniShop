@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "Upsert";
+}
+
+<h2>Tạo chức vụ</h2>
+<form asp-action="Upsert" class="mx-5">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Mã Nhân Viên</label>
+                <input type="text" class="form-control" name="ma_nhan_vien" />
+            </div>
+            <div class="form-group">
+                <label>Tên nhân viên</label>
+                <input type="text" class="form-control" name="ten_nhan_vien" />
+            </div>
+            <div class="form-group">
+                <label>Ngày Sinh</label>
+                <input type="date" class="form-control" name="ngay_sinh" />
+            </div>
+            <div class="form-group">
+                <label>Giới tính</label>
+                <select class="form-control" name="gioi_tinh">
+                    <option value="nam">NAM</option>
+                    <option value="nu">Nữ</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>CMND</label>
+                <input type="text" class="form-control" name="cmnd" />
+            </div>
+            <div class="form-group">
+                <label>SĐT</label>
+                <input type="text" class="form-control" name="sdt" />
+            </div>
+            <div class="form-group">
+                <label>Ngày Làm Việc</label>
+                <input type="date" class="form-control" name="ngay_lam_viec" />
+            </div>
+            <div class="form-group">
+                <label>Chức vụ</label>
+                <select asp-items="@ViewBag.ListChucVu" class="form-control" name="chuc_vu">
+                </select>
+            </div>
+        </div>
+        <input  type="submit" value="Khởi Tạo" class="btn btn-outline-secondary form-control" />
+
+    </div>
+</form>
+

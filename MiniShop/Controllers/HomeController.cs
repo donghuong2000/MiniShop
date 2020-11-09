@@ -36,7 +36,7 @@ namespace MiniShop.Controllers
             parameter.Add("@MA_PHAN_LOAI","DGD");
             parameter.Add("@TEN_MA_PHAN_LOAI", "Đồ Gia Dụng");
              
-            var a =  _unitOfWork.SP_Call.Excute(SD.Phan_Loai.INSERT_PHAN_LOAI,parameter);
+            var a =  _unitOfWork.SP_Call.Excute(SD.Phan_Loai.CREATE,parameter);
             return Json(a);
         }
 
