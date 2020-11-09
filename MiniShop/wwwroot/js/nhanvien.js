@@ -103,7 +103,12 @@ $('#EditModal').on('show.bs.modal', function (event) {
             modal.find('#ma_nhan_vien').val(data.data[0].MANV)
             modal.find('#ma_nhan_vien_old').val(data.data[0].MANV)
             modal.find('#ten_nhan_vien').val(data.data[0].TENNV)
-            modal.find('#luong').val(data.data[0].LUONG)
+            modal.find('#ngay_sinh').val(data.data[0].NGAYSINH)
+            modal.find('#gioi_tinh').val(data.data[0].GIOITINH)
+            modal.find('#cmnd').val(data.data[0].CMND)
+            modal.find('#sdt').val(data.data[0].SDT)
+            modal.find('#chuc_vu').val(data.data[0].CHUCVU)
+            modal.find('#ngay_lam_viec').val(data.data[0].NGAYLAMVIEC)
         }
     })
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.

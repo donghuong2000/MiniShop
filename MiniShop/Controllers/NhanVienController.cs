@@ -43,9 +43,43 @@ namespace MiniShop.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Upsert(string id)
+        public IActionResult Upsert(string ma_nhan_vien,string ten_nhan_vien,
+            string ngay_sinh,string gioi_tinh,
+            string cmnd,string sdt,
+            string ngay_lam_viec,
+            string chuc_vu,
+            string dia_chi,
+            string ten_tai_khoan, 
+            string mat_khau,
+            string Com_mat_khau)
         {
-
+            if(ModelState.IsValid)
+            {
+                var parameter = new DynamicParameters();
+                parameter.Add("@MANV", ma_nhan_vien);
+                parameter.Add("@TENNV", ten_nhan_vien);
+                parameter.Add("@GIOITINH", gioi_tinh);
+                parameter.Add("@NGAYSINH", ngay_sinh);
+                parameter.Add("@CMND", cmnd);
+                parameter.Add("@SDT", sdt);
+                parameter.Add("@DIACHI",dia_chi );
+                parameter.Add("@USERNAME", ten_tai_khoan);
+                parameter.Add("@NVPASSWORD", mat_khau);
+                parameter.Add("@NGAYLAMVIEC", ngay_lam_viec);
+                parameter.Add("@CHUCVU", chuc_vu);
+                var result = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.CREATE, parameter);
+                if (result.success)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    if (result.message.Contains("duplicate"))
+                        result.message = "Mã phân loại đã tồn tại";
+                    ModelState.AddModelError("", result.message);
+                }
+            }
+            ViewBag.ListChucVu = GetSelectItemsChucVu();
             return View();
         }
         public IActionResult GetAll()
