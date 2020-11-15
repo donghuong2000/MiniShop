@@ -1,3 +1,10 @@
 ﻿còn update user chưa hoàn chỉnh
 -giảm giá controller:
+ + đã add view , chưa sử lí CRUD
+ + còn thiếu lấy danh sách sản phẩm,cho selectlist
+
+
+ - sản phẩm controller:
+
+
 

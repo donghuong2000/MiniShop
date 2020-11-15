@@ -1,4 +1,10 @@
-﻿// show selection của các cách áp dụng mã giảm giá
+﻿$(document).ready(function () {
+    $('.selectlist').select2();
+});
+
+
+
+// show selection của các cách áp dụng mã giảm giá
 var currchecked = "none";
 $('#ggsp').click(function () {
     var popup = $('#giamgiatheosanpham');

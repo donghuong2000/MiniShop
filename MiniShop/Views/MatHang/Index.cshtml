@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["title"] = "Mặt Hàng";
+}
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách Chức Vụ</h6>
+            <a asp-action="Upsert" class="btn btn-primary ml-auto">Tạo Chức Vụ</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Mã mặt hàng</th>
+                            <th>Tên mặt hàng</th>
+                            <th>Ngày sản xuất</th>
+                            <th>Hạn sử dụng</th>
+                            <th>Giá</th>
+                            <th>Loại</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Mã mặt hàng</th>
+                            <th>Tên mặt hàng</th>
+                            <th>Ngày sản xuất</th>
+                            <th>Hạn sử dụng</th>
+                            <th>Giá</th>
+                            <th>Loại</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- pop up update-->
+    <div class="modal  fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EditModalLabel">Chỉnh sửa Nhân viên</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateNhanvienForm" onsubmit="return false">
+                        <div class="row align-items-center">
+                            <div hidden class="form-group">
+                                <label>Mã nhan vien</label>
+                                <input type="text" class="form-control" id="ma_nhan_vien_old" />
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Mã Nhân Viên</label>
+                                    <input type="text" class="form-control" id="ma_nhan_vien" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Tên nhân viên</label>
+                                    <input type="text" class="form-control" id="ten_nhan_vien" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Ngày Sinh</label>
+                                    <input type="date" class="form-control" id="ngay_sinh" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Giới tính</label>
+                                    <select class="form-control" id="gioi_tinh">
+                                        <option value="nam">NAM</option>
+                                        <option value="nu">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>CMND</label>
+                                    <input type="text" class="form-control" id="cmnd" />
+                                </div>
+                                <div class="form-group">
+                                    <label>SĐT</label>
+                                    <input type="text" class="form-control" id="sdt" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Ngày Làm Việc</label>
+                                    <input type="date" class="form-control" id="ngay_lam_viec" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Chức vụ</label>
+                                    <select asp-items="@ViewBag.ListChucVu" class="form-control" id="chuc_vu">
+                                    </select>
+                                </div>
+                            </div>
+                            <input id="updateform" data-dismiss="modal" type="submit" value="Cập nhập" class="btn btn-outline-secondary form-control" />
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="~/js/build/toastr.min.js"></script>
+    <script src="~/js/mathang.js"></script>
+
+}
+@section csss{
+    <link href="~/js/build/toastr.css" rel="stylesheet" />
+
+}
+
+
