@@ -99,7 +99,7 @@ $('#EditModal').on('show.bs.modal', function (event) {
         method: 'GET',
         url: '/nhanvien/get/' + idname,
         success: function (data) {
-            console.log(data);
+           
             modal.find('#ma_nhan_vien').val(data.data[0].MANV)
             modal.find('#ma_nhan_vien_old').val(data.data[0].MANV)
             modal.find('#ten_nhan_vien').val(data.data[0].TENNV)
@@ -109,6 +109,8 @@ $('#EditModal').on('show.bs.modal', function (event) {
             modal.find('#sdt').val(data.data[0].SDT)
             modal.find('#chuc_vu').val(data.data[0].CHUCVU)
             modal.find('#ngay_lam_viec').val(data.data[0].NGAYLAMVIEC)
+            modal.find('#dia_chi').val(data.data[0].DIACHI)
+            modal.find('#user_name').val(data.data[0].USERNAME)
         }
     })
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -117,14 +119,20 @@ $('#EditModal').on('show.bs.modal', function (event) {
 })
 
 $('#updateform').click(function () {
-    var oldId = $('#ma_chuc_vu_old').val();
-    var newId = $('#ma_chuc_vu').val();
-    var newnameValue = $('#ten_chuc_vu').val();
-    var newluongValue = $('#luong').val();
+    var a = $('#ma_nhan_vien').val()
+    var b = $('#ma_nhan_vien_old').val()
+    var c = $('#ten_nhan_vien').val()
+    var d = $('#ngay_sinh').val()
+    var e = $('#gioi_tinh').val()
+    var f = $('#cmnd').val()
+    var g = $('#sdt').val()
+    var h = $('#chuc_vu').val()
+    var k = $('#dia_chi').val()
+    var l = $('#user_name').val()
     $.ajax({
         method: 'POST',
-        data: {oldId:oldId,newId:newId,newValue:newnameValue,luong:newluongValue},
-        url: '/chucvu/update/',
+        data: {a:a,b:b,c:c,d:d,e:e,f:f,g:g,h:h,k:k,l:l},
+        url: '/nhanvien/update/',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (data) {
             if (data.success) {

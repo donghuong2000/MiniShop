@@ -102,5 +102,52 @@ namespace MiniShop.Controllers
             }
             return NotFound();
         }
+    
+        [HttpPost]
+        public IActionResult Update(string a,string b,string c,string d,string e,string f,string g,string h,string k,string l)
+        {
+    //        var a = $('#ma_nhan_vien').val()
+    //var b = $('#ma_nhan_vien_old').val()
+    //var c = $('#ten_nhan_vien').val()
+    //var d = $('#ngay_sinh').val()
+    //var e = $('#gioi_tinh').val()
+    //var f = $('#cmnd').val()
+    //var g = $('#sdt').val()
+    //var h = $('#chuc_vu').val()
+    //var k = $('#dia_chi').val()
+    //var l = $('#user_name').val()
+            var parameter = new DynamicParameters();
+            parameter.Add("@MANV", a);
+            parameter.Add("@MANVOLD",b);
+            parameter.Add("@TENNV", c);
+            parameter.Add("@GIOITINH", e);
+            parameter.Add("@NGAYSINH",d);
+            parameter.Add("@CMND", f);
+            parameter.Add("@SDT", g);
+            parameter.Add("@DIACHI", k);
+            parameter.Add("@USERNAME", l);
+            parameter.Add("@CHUCVU", h);
+            var result = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.UPDATE, parameter);
+            if (result.success)
+            {
+                return Content(result.message, "application/json");
+            }
+            return NotFound();
+        }
+        [HttpDelete]
+        public IActionResult Delete(string id)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("@MANV", id);
+            var result = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.DELETE, parameter);
+            if (result.success)
+            {
+                return Json(new { success = true, message = "xóa thành công" });
+            }
+            else
+                return Json(new { success = false, message = result.message });
+
+
+        }
     }
 }

@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniShop", "MiniShop\MiniSh
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{706CCCA3-8627-4348-87B6-A3B9F4BB0F10}"
 	ProjectSection(SolutionItems) = preProject
+		JobWork.txt = JobWork.txt
 		README.md = README.md
 	EndProjectSection
 EndProject
