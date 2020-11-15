@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "Upsert";
+}
+
+<h2>Tạo mã giảm giá</h2>
+<form asp-action="Upsert" class="mx-5">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Mã Giảm Giá</label>
+                <input type="text" class="form-control" name="ma_nhan_vien" />
+            </div>
+            <div class="form-group">
+                <label>Tên Giảm Giá</label>
+                <input type="text" class="form-control" name="ten_nhan_vien" />
+            </div>
+            <div class="form-group">
+                <label>Ngày Bắt Đầu</label>
+                <input type="date" class="form-control" name="ngay_sinh" />
+            </div>
+            <div class="form-group">
+                <label>Ngày Kết Thúc</label>
+                <input type="date" class="form-control" name="ten_tai_khoan" />
+            </div>
+            <div class="form-group">
+                <label>Phần Trăm Giảm</label>
+                <input type="number" class="form-control" name="mat_khau" />
+            </div>
+            <div class="form-group">
+                <label>Tiền giảm tối đa</label>
+                <input type="number" class="form-control" name="Com_mat_khau" />
+            </div>
+            <div class="form-group">
+                <label>Số lần sử dụng tối đa</label>
+                <input type="number" class="form-control" name="Com_mat_khau" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div style="margin-top:32px" class="form-group d-flex align-items-center">
+                <input style="width:22px" class="form-control mr-2" type="checkbox" name="name" id="ggsp"  />
+                <label>Giảm giá theo sản phẩm</label>
+            </div>
+            <div hidden id="giamgiatheosanpham">
+                <div class="form-group">
+                    <label>Các sản phẩm áp dụng</label>
+                    <select class="form-control">
+                        <option>1</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group d-flex align-items-center">
+                <input style="width:22px" class="form-control mr-2" type="checkbox" name="name" id="ggpl"  />
+                <label>Giảm giá phân loại</label>
+            </div>
+            <div hidden id="giamgiatheophanloai">
+                <div class="form-group">
+                    <label>Các phân loại áp dụng</label>
+                    <select class="form-control">
+                        <option>1</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group d-flex align-items-center">
+                <input style="width:22px" class="form-control mr-2" type="checkbox" name="name" id="ggall" checked />
+                <label>Giảm giá tất cả</label>
+            </div>
+        </div>
+        <input type="submit" value="Khởi Tạo" class="btn btn-outline-secondary form-control" />
+
+    </div>
+</form>
+
+@section Scripts{
+    <script src="~/js/giamgiaCreate.js"></script>
+}

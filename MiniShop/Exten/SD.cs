@@ -84,8 +84,8 @@ namespace MiniShop.Exten
         }
         public static class Giam_Gia
         {
-            public static string CREATE = "GIAM_GIA_PHAN_LOAI_CREATE";
-            public static string GET_ALL = "GIAM_GIA_PHAN_LOAI_GETALL";
+            public static string CREATE = "GIAM_GIA_CREATE";
+            public static string GET_ALL = "GIAM_GIA_GETALL";
             public static string GET = "GIAM_GIA_GET";
             public static string UPDATE = "GIAM_GIA_UPDATE";
             public static string DELETE = "GIAM_GIA_DELETE";
