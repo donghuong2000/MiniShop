@@ -5,6 +5,7 @@
 
 
  - sản phẩm controller:
+  + tạo view index, chưa CRUD
 
 
 

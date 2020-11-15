@@ -9,19 +9,21 @@ $(document).ready(function () {
             "url": "/MatHang/GetAll"
         },
         "columns": [
-            { "data": "MANV" },
-            { "data": "TENNV" },
-            { "data": "NGAYLAMVIEC" },
-            { "data": "CHUC_VU.0.TENCHUCVU" },
+            { "data": "MAMH" },
+            { "data": "TENMH" },
+            { "data": "NGAYSX" },
+            { "data": "HANSD" },
+            { "data": "GIA" },
+            { "data": "PHAN_LOAI.0.TENLOAIMH" },
             {
-                "data": "MANV",
+                "data": "MAMH",
                 "render": function (data) {
                     return `
                              <div class="text-center">
                                 <a data-toggle="modal" data-target="#EditModal" data-whatever="${data}" class="btn btn-success text-white" style="cursor:pointer">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a onClick=Delete("/nhanvien/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                                <a onClick=Delete("/MatHang/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>                           
