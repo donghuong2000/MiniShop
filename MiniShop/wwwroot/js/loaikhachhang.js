@@ -67,7 +67,7 @@ function Delete(url) {
                     else {
                         swalWithBootstrapButtons.fire(
                             'Error',
-                            'Can not delete this, maybe it not exit or error from sever',
+                            data.message,
                             'error'
                         )
                     }
@@ -97,18 +97,9 @@ $('#EditModal').on('show.bs.modal', function (event) {
         method: 'GET',
         url: '/loaikhachhang/get/' + idname,
         success: function (data) {
-           
-            modal.find('#ma_nhan_vien').val(data.data[0].MANV)
-            modal.find('#ma_nhan_vien_old').val(data.data[0].MANV)
-            modal.find('#ten_nhan_vien').val(data.data[0].TENNV)
-            modal.find('#ngay_sinh').val(data.data[0].NGAYSINH)
-            modal.find('#gioi_tinh').val(data.data[0].GIOITINH)
-            modal.find('#cmnd').val(data.data[0].CMND)
-            modal.find('#sdt').val(data.data[0].SDT)
-            modal.find('#chuc_vu').val(data.data[0].CHUCVU)
-            modal.find('#ngay_lam_viec').val(data.data[0].NGAYLAMVIEC)
-            modal.find('#dia_chi').val(data.data[0].DIACHI)
-            modal.find('#user_name').val(data.data[0].USERNAME)
+            modal.find('#ma_loai_khach_hang').val(data.data[0].MALOAIKH)
+            modal.find('#ma_loai_khach_hang_old').val(data.data[0].MALOAIKH)
+            modal.find('#ten_loai_khach_hang').val(data.data[0].TENLOAI) 
         }
     })
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -117,20 +108,14 @@ $('#EditModal').on('show.bs.modal', function (event) {
 })
 
 $('#updateform').click(function () {
-    var a = $('#ma_nhan_vien').val()
-    var b = $('#ma_nhan_vien_old').val()
-    var c = $('#ten_nhan_vien').val()
-    var d = $('#ngay_sinh').val()
-    var e = $('#gioi_tinh').val()
-    var f = $('#cmnd').val()
-    var g = $('#sdt').val()
-    var h = $('#chuc_vu').val()
-    var k = $('#dia_chi').val()
-    var l = $('#user_name').val()
+    var a = $('#ma_loai_khach_hang').val()
+    var b = $('#ma_loai_khach_hang_old').val()
+    var c = $('#ten_loai_khach_hang').val()
+   
     $.ajax({
         method: 'POST',
-        data: {a:a,b:b,c:c,d:d,e:e,f:f,g:g,h:h,k:k,l:l},
-        url: '/nhanvien/update/',
+        data: {a:a,b:b,c:c},
+        url: '/loaikhachhang/update/',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (data) {
             if (data.success) {
