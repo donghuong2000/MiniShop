@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["title"] = "Loại Khách Hàng";
+}
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách loại khách hàng</h6>
+            <a asp-action="Upsert" class="btn btn-primary ml-auto">Tạo khách hàng</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Mã loại khách hàng</th>
+                            <th>Tên loại khách hàng</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Mã loại khách hàng</th>
+                            <th>Tên loại khách hàng</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- pop up update-->
+    <div class="modal  fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EditModalLabel">Chỉnh sửa loại khách hàng</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateloaikhachhangForm" onsubmit="return false">
+                        <div class="row align-items-center">
+                            <div class="col-md-7 offset-md-2">
+                                <div hidden class="form-group">
+                                    <label>Mã loại khách hàng</label>
+                                    <input type="text" class="form-control" id="ma_loai_khach_hang_old" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Mã loại khách hàng</label>
+                                    <input type="text" class="form-control" id="ma_loai_khach_hang" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Tên loại khách hàng</label>
+                                    <input type="text" class="form-control" id="ten_loai_khach_hang" />
+                                </div>
+                                <input id="updateform" data-dismiss="modal" type="submit" value="Cập nhập" class="btn btn-outline-secondary form-control" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="~/js/build/toastr.min.js"></script>
+    <script src="~/js/loaikhachhang.js"></script>
+
+}
+@section csss{
+    <link href="~/js/build/toastr.css" rel="stylesheet" />
+
+}
+
+

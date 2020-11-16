@@ -6,6 +6,6 @@
 
  - sản phẩm controller:
   + tạo view index, chưa CRUD
+  + còn thiếu nhiều
 
-
-
+ - 
