@@ -29,7 +29,8 @@ namespace MiniShop.Repository
                 sqlConnection.Open();
                 try
                 {
-                    var obj = sqlConnection.ExecuteReader(proceduceName, param, commandType: System.Data.CommandType.StoredProcedure);
+                    var obj = sqlConnection.ExecuteReader(proceduceName, param, 
+                        commandType: System.Data.CommandType.StoredProcedure);
                     var r = "";
                     while (obj.Read())
                     {
@@ -47,9 +48,6 @@ namespace MiniShop.Repository
 
                     return (false, e.Message);
                 }
-                
-                
-                
             }
         }
 

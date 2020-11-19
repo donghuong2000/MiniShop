@@ -21,7 +21,7 @@ $(document).ready(function () {
                 "render": function (data) {
                     return `
                              <div class="text-center">
-                                <a data-toggle="modal" data-target="#EditModal" data-whatever="${data}" class="btn btn-success text-white" style="cursor:pointer">
+                                <a href="/giamgia/upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a onClick=Delete("/giamgia/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
@@ -93,52 +93,3 @@ function Delete(url) {
 
 
 
-$('#EditModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var idname = button.data('whatever') // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    var modal = $(this)
-    $.ajax({
-        method: 'GET',
-        url: '/chucvu/get/' + idname,
-        success: function (data) {
-            modal.find('#ma_chuc_vu').val(data.data[0].MACHUCVU)
-            modal.find('#ma_chuc_vu_old').val(data.data[0].MACHUCVU)
-            modal.find('#ten_chuc_vu').val(data.data[0].TENCHUCVU)
-            modal.find('#luong').val(data.data[0].LUONG)
-        }
-    })
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    
-    
-})
-
-$('#updateform').click(function () {
-    var oldId = $('#ma_chuc_vu_old').val();
-    var newId = $('#ma_chuc_vu').val();
-    var newnameValue = $('#ten_chuc_vu').val();
-    var newluongValue = $('#luong').val();
-    $.ajax({
-        method: 'POST',
-        data: {oldId:oldId,newId:newId,newValue:newnameValue,luong:newluongValue},
-        url: '/giamgia/update/',
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        success: function (data) {
-            if (data.success) {
-                toastr.success(data.message);
-                $('#dataTable').DataTable().ajax.reload();
-            }
-            else {
-
-                toastr.error(data.message);
-            }
-        }
-    })
-
-}
-)
-
-// show selection của các cách áp dụng mã giảm giá
-$('#ggsp').click(function () {
-    console.log('aa');
-})

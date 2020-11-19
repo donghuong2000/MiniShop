@@ -84,27 +84,30 @@ namespace MiniShop.Exten
         }
         public static class Giam_Gia
         {
+            public static string IS_EXIST = "GIAM_GIA_ISEXITS";
             public static string CREATE = "GIAM_GIA_CREATE";
             public static string GET_ALL = "GIAM_GIA_GETALL";
             public static string GET = "GIAM_GIA_GET";
             public static string UPDATE = "GIAM_GIA_UPDATE";
             public static string DELETE = "GIAM_GIA_DELETE";
+            public static string CLEAR_REF = "GIAM_GIA_DELETE_MAGG_MAPL";
+            
         }
         public static class Giam_Gia_Phan_Loai
         {
-            public static string CREATE = "GIAM_GIA_PHAN_LOAI_CREATE";
-            public static string GET_ALL = "GIAM_GIA_PHAN_LOAI_GETALL";
-            public static string GET = "GIAM_GIA_PHAN_LOAI_GET";
-            public static string UPDATE = "GIAM_GIA_PHAN_LOAI_UPDATE";
-            public static string DELETE = "GIAM_GIA_PHAN_LOAI_DELETE";
+            public static string CREATE = "GGPL_CREATE";
+            public static string GET_ALL = "GGPL_GETALL";
+            public static string GET = "GGPL_GET";
+            public static string UPDATE = "GGPL_UPDATE";
+            public static string DELETE = "GGPL_DELETE";
         }
         public static class Giam_Gia_San_Phan
         {
-            public static string CREATE = "GIAM_GIA_SAN_PHAM_CREATE";
-            public static string GET_ALL = "GIAM_GIA_SAN_PHAM_GETALL";
-            public static string GET = "GIAM_GIA_SAN_PHAM_GET";
-            public static string UPDATE = "GIAM_GIA_SAN_PHAM_UPDATE";
-            public static string DELETE = "GIAM_GIA_SAN_PHAM_DELETE";
+            public static string CREATE = "GGMH_CREATE";
+            public static string GET_ALL = "GGMH_GETALL";
+            public static string GET = "GGMH_GET";
+            public static string UPDATE = "GGMH_UPDATE";
+            public static string DELETE = "GGMH_DELETE";
         }
         public static class Don_Nhap_Hang
         {

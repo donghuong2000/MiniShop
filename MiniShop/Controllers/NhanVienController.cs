@@ -28,12 +28,13 @@ namespace MiniShop.Controllers
             return View();
         }
         private IEnumerable<SelectListItem> GetSelectItemsChucVu()
-        {
+        { 
             string objstring = _unitOfWork.SP_Call.Excute(SD.Chuc_vu.GET_ALL).message;
             // chuẩn hóa cho phù hợp
             objstring = objstring.Substring(8, objstring.Length - 9);
             var obj = JArray.Parse(objstring);
             // chuyển đổi thành selectlist item
+            
             var list = obj.Select(x => new SelectListItem(x["TENCHUCVU"].ToString(), x["MACHUCVU"].ToString()));
             return list;
         }

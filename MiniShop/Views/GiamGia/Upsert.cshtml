@@ -1,4 +1,4 @@
-﻿
+﻿@model MagiamgiaViewModel
 @{
     ViewData["Title"] = "Upsert";
 }
@@ -8,61 +8,70 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row">
         <div class="col-md-6">
+            
             <div class="form-group">
                 <label>Mã Giảm Giá</label>
-                <input type="text" class="form-control" name="ma_nhan_vien" />
+                @if (ViewBag.Id == "")
+                {
+                    <input type="text" class="form-control" asp-for="Id" />
+                }
+                else
+                {
+                    <input readonly type="text" class="form-control" asp-for="Id" />
+                }
+
             </div>
             <div class="form-group">
                 <label>Tên Giảm Giá</label>
-                <input type="text" class="form-control" name="ten_nhan_vien" />
+                <input type="text" class="form-control" asp-for="Name" />
             </div>
             <div class="form-group">
                 <label>Ngày Bắt Đầu</label>
-                <input type="date" class="form-control" name="ngay_sinh" />
+                <input type="date" class="form-control" asp-for="DateStart" />
             </div>
             <div class="form-group">
                 <label>Ngày Kết Thúc</label>
-                <input type="date" class="form-control" name="ten_tai_khoan" />
+                <input type="date" class="form-control" asp-for="DateEnd" />
             </div>
             <div class="form-group">
                 <label>Phần Trăm Giảm</label>
-                <input type="number" class="form-control" name="mat_khau" />
+                <input type="number" class="form-control" asp-for="Percent" />
             </div>
             <div class="form-group">
                 <label>Tiền giảm tối đa</label>
-                <input type="number" class="form-control" name="Com_mat_khau" />
+                <input type="number" class="form-control" asp-for="MaxDisCount" />
             </div>
             <div class="form-group">
                 <label>Số lần sử dụng tối đa</label>
-                <input type="number" class="form-control" name="Com_mat_khau" />
+                <input type="number" class="form-control" asp-for="MaxTimeUse" />
             </div>
         </div>
         <div class="col-md-6">
             <div style="margin-top:32px" class="form-group d-flex align-items-center">
-                <input style="width:22px" class="form-control mr-2" type="checkbox" name="name" id="ggsp" />
+                <input style="width:22px" class="form-control mr-2" type="checkbox" asp-for="IsProductDisCount" id="ggsp" />
                 <label>Giảm giá theo sản phẩm</label>
             </div>
             <div hidden id="giamgiatheosanpham">
                 <div class="form-group">
                     <label>Các sản phẩm áp dụng</label>
-                    <select style="width:100%" class="selectlist form-control" multiple>
+                    <select style="width:100%" asp-for="ProductId" class="selectlist form-control" asp-items="ViewBag.SanPhamList" multiple>
                         
                     </select>
                 </div>
             </div>
             <div class="form-group d-flex align-items-center">
-                <input style="width:22px" class=" form-control mr-2" type="checkbox" name="name" id="ggpl" />
+                <input style="width:22px" class=" form-control mr-2" type="checkbox" asp-for="IsCategoryDisCount" id="ggpl" />
                 <label>Giảm giá phân loại</label>
             </div>
             <div hidden id="giamgiatheophanloai">
                 <div class="form-group">
                     <label>Các phân loại áp dụng</label>
-                    <select style="width:100%" class="selectlist form-control" asp-items="ViewBag.PhanLoaiList" multiple>
+                    <select style="width:100%" asp-for="CategoryId" class="selectlist form-control" asp-items="ViewBag.PhanLoaiList" multiple>
                     </select>
                 </div>
             </div>
             <div class="form-group d-flex align-items-center">
-                <input style="width:22px" class="form-control mr-2" type="checkbox" name="name" id="ggall" checked />
+                <input style="width:22px" class="form-control mr-2" type="checkbox" asp-for="IsAllDisCount" id="ggall" checked />
                 <label>Giảm giá tất cả</label>
             </div>
         </div>

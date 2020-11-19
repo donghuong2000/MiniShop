@@ -1,11 +1,14 @@
 ﻿còn update user chưa hoàn chỉnh
+
 -giảm giá controller:
- + đã add view , chưa sử lí CRUD
- + còn thiếu lấy danh sách sản phẩm,cho selectlist
+ + đã add view , chưa sử lí Delete
+ + yêu cầu thêm trigger xóa mấy khóa ngoại liên quan của mã giảm giá
 
 
  - sản phẩm controller:
   + tạo view index, chưa CRUD
   + còn thiếu nhiều
 
- - 
+ - khách hàng controller
+	+ tạo view index, chưa CRUD
+	 + còn thiếu nhiều
