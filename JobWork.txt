@@ -1,4 +1,4 @@
-﻿còn update user chưa hoàn chỉnh
+﻿
 
 -giảm giá controller:
 chưa sử lí Delete
@@ -6,9 +6,8 @@ chưa sử lí Delete
 
 
  - sản phẩm controller:
-  + đã tạo view index,
-  chưa CRUD
-  + còn thiếu nhiều
+
+  + còn thiếu update
 
  - khách hàng controller
 	+ đã tạo view index, 

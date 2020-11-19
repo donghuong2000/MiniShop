@@ -131,9 +131,9 @@ namespace MiniShop.Controllers
             var result = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.UPDATE, parameter);
             if (result.success)
             {
-                return Content(result.message, "application/json");
+                return Json(new { success = true, message = "đã sửa thành công" });
             }
-            return NotFound();
+            return Json(new { success = false, message = result.message });
         }
         [HttpDelete]
         public IActionResult Delete(string id)
