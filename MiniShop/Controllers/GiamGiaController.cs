@@ -205,5 +205,18 @@ namespace MiniShop.Controllers
             return View(vm);
 
         }
+
+        [HttpDelete]
+        public IActionResult Delete(string id)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("@MAGG", id);
+            var result = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.DELETE, parameter);
+            if(result.success)
+            {
+                return Json(new { success = true, message = "Xóa thành công Mã Giảm Giá" });
+            }
+            return Json(new { success = false, message = result.message });
+        }
     }
 }

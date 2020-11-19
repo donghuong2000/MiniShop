@@ -64,7 +64,7 @@ function Delete(url) {
                     if (data.success) {
                         swalWithBootstrapButtons.fire(
                             'Deleted!',
-                            'Your file has been deleted.',
+                            data.message,
                             'success'
                         );
                         $('#dataTable').DataTable().ajax.reload();
@@ -72,7 +72,7 @@ function Delete(url) {
                     else {
                         swalWithBootstrapButtons.fire(
                             'Error',
-                            'Can not delete this, maybe it not exit or error from sever',
+                            data.message,
                             'error'
                         )
                     }
