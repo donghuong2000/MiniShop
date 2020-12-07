@@ -11,7 +11,7 @@ using MiniShop.Repository.IRepository;
 
 namespace MiniShop.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
         private readonly IUnitOfWork _unitOfWork;

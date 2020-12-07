@@ -36,11 +36,17 @@ namespace MiniShop.Controllers
         {
             string objstring = _unitOfWork.SP_Call.Excute(SD.Phan_Loai.GET_ALL).message;
             // chuẩn hóa cho phù hợp
-            objstring = objstring.Substring(8, objstring.Length - 9);
-            var obj = JArray.Parse(objstring);
-            // chuyển đổi thành selectlist item
-            var list = obj.Select(x => new SelectListItem(x["TENLOAIMH"].ToString(), x["MALOAIMH"].ToString()));
-            return list;
+            if(objstring.Length>0)
+            {
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                var obj = JArray.Parse(objstring);
+                // chuyển đổi thành selectlist item
+                var list = obj.Select(x => new SelectListItem(x["TENLOAIMH"].ToString(), x["MALOAIMH"].ToString()));
+                return list;
+            }
+            return null;
+            
+            
         }
         private IEnumerable<SelectListItem> GetSelectItemsMatHang()
         {

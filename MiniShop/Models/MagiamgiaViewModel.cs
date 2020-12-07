@@ -11,6 +11,8 @@ namespace MiniShop.Models
         {
             ProductId = new List<string>();
             CategoryId = new List<string>();
+            DateStart = DateTime.Now;
+            DateEnd = DateTime.Now;
         }
         public string Id { get; set; }
         public string Name { get; set; }

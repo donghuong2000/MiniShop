@@ -12,7 +12,7 @@ namespace MiniShop.Repository
     public class SP_Call : ISP_Call
     {
 
-        private static string ConnectionString = "Server=dbms.czhgxs9hoqoj.ap-southeast-1.rds.amazonaws.com,1433;Database=NHOM3;User Id=admin;Password=Hoilamj0123!";
+        public static string ConnectionString = "Server=.;Database=NHOM3;Trusted_Connection=True;";
         public SP_Call()
         {
 
@@ -51,5 +51,35 @@ namespace MiniShop.Repository
             }
         }
 
+        public bool Login(string username,string password)
+        {
+            var newConnnect = "Server=.;Database=Nhom3;User Id=" + username + ";Password=" + password + ";";
+            using (SqlConnection sqlConnection = new SqlConnection(newConnnect))
+            {
+                
+                try
+                {
+                    sqlConnection.Open();
+                    var obj = sqlConnection.ExecuteReader("SELECT name FROM master.dbo.sysdatabases");
+                        
+                    var r = "";
+                    while (obj.Read())
+                    {
+                        var a = obj.GetValue(0);
+                        r += a.ToString();
+
+                    }
+
+                    // chuẩn hóa đầu ra
+                    r = "{\"data\":" + r + "}";
+                    return true ;
+                }
+                catch (Exception e)
+                {
+
+                    return false;
+                }
+            }
+        }
     }
 }

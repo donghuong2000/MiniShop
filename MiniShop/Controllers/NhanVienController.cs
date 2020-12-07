@@ -57,7 +57,7 @@ namespace MiniShop.Controllers
             if(ModelState.IsValid)
             {
                 var parameter = new DynamicParameters();
-                parameter.Add("@MANV", ma_nhan_vien);
+              
                 parameter.Add("@TENNV", ten_nhan_vien);
                 parameter.Add("@GIOITINH", gioi_tinh);
                 parameter.Add("@NGAYSINH", ngay_sinh);
