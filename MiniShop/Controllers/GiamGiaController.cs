@@ -218,5 +218,22 @@ namespace MiniShop.Controllers
             }
             return Json(new { success = false, message = result.message });
         }
+        public IActionResult Get(string id)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("@MAGG", id);
+            var result = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.GET, parameter);
+            float price = 0;
+            if (result.success && result.message.Length > 20)
+            {
+                // chuẩn hóa cho phù hợp
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                var obj = JArray.Parse(objstring);
+                // chuyển đổi thành 
+                price = float.Parse(obj[0]["GIA"].ToString());
+            }
+            return Json(new { data = price });
+        }
     }
 }

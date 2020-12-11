@@ -11,7 +11,6 @@ namespace MiniShop.Repository
 {
     public class SP_Call : ISP_Call
     {
-
         private static string ConnectionString = "Server=dbms.czhgxs9hoqoj.ap-southeast-1.rds.amazonaws.com,1433;Database=NHOM3;User Id=admin;Password=Hoilamj0123!";
         public SP_Call()
         {
