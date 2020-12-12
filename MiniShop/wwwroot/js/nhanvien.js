@@ -120,7 +120,7 @@ $('#EditModal').on('show.bs.modal', function (event) {
 
 $('#updateform').click(function () {
     var a = $('#ma_nhan_vien').val()
-    var b = $('#ma_nhan_vien_old').val()
+    var b = $('#ngay_lam_viec').val()
     var c = $('#ten_nhan_vien').val()
     var d = $('#ngay_sinh').val()
     var e = $('#gioi_tinh').val()

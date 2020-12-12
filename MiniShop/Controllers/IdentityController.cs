@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MiniShop.Exten;
 using MiniShop.Repository.IRepository;
+using Newtonsoft.Json.Linq;
 
 namespace MiniShop.Controllers
 {
@@ -26,6 +29,19 @@ namespace MiniShop.Controllers
             if(result==true)
             {
                 Request.HttpContext.Session.SetString("U", username);
+                var parameter = new DynamicParameters();
+                parameter.Add("@MANV", username);
+                var x = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.GET,parameter);
+                if(x.success)
+                {
+                    string objstring = x.message;
+                    // chuẩn hóa cho phù hợp
+                    objstring = objstring.Substring(8, objstring.Length - 9);
+                    var obj = JArray.Parse(objstring);
+                    // chuyển đổi thành selectlist item
+                    var role = obj[0]["CHUCVU"].ToString();
+                    Request.HttpContext.Session.SetString("R", role);
+                }
                 return RedirectToAction("Index", "home");
             }
             ModelState.AddModelError("", "đăng nhập thất bại, vui lòng kiểm tra lại tài khoản, mật khẩu");
