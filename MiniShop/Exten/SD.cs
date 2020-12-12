@@ -82,6 +82,7 @@ namespace MiniShop.Exten
             public static string UPDATE = "HOA_DON_UPDATE";
             public static string DELETE = "HOA_DON_DELETE";
             public static string GETMAXID = "HOA_DON_GET_MAX_ID";
+            public static string GETDETAIL = "HOA_DON_GET_DETAILS";
         }
         public static class Giam_Gia
         {

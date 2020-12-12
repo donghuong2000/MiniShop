@@ -87,7 +87,79 @@ namespace MiniShop.Controllers
             return list;
         }
 
+
+        public IActionResult Get(string id)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("@MAHD", id);
+            var result = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.GET, parameter);
+            if (result.success)
+            {
+                return Content(result.message, "application/json");
+            }
+            return NotFound();
+        }
+        
+        public IActionResult GetPrice(string id)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("@MAMH", id);
+            var result = _unitOfWork.SP_Call.Excute(SD.Mat_Hang.GET, parameter);
+            float price = 0; 
+            if (result.success && result.message.Length >20) 
+            {
+                // chuẩn hóa cho phù hợp
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                // chuyển lại thành Jarray
+                var obj = JArray.Parse(objstring);
+                // chuyển đổi thành string 
+                price = float.Parse(obj[0]["GIA"].ToString());
+            }
+            return Json(new { data = price });
+        }
         public IActionResult Upsert()
+        {
+            AddViewBagForUpsert();
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Upsert(string ma_hoa_don, string khach_hang, string nhan_vien,  string ngay_lap_hoa_don,string total_amount,string discount ,string[] product, string[] qty)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("@MAHD",ma_hoa_don);
+            parameter.Add("@MAKH", khach_hang);
+            parameter.Add("@MANV", nhan_vien);
+            parameter.Add("@NGAYLHD", ngay_lap_hoa_don);
+            parameter.Add("@TONGTIEN", total_amount);
+            parameter.Add("@MAGIAMGIA", discount);
+            var result_add_hoa_don = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.CREATE, parameter);
+            if(result_add_hoa_don.success == false)
+            {
+                ModelState.AddModelError("", result_add_hoa_don.message);
+                AddViewBagForUpsert();
+                return View();
+            }
+            DynamicParameters parameter1;
+            for(int i=0;i<product.Length;i++)
+            {
+                parameter1 = new DynamicParameters();
+                parameter1.Add("@MAMH", product[i]);
+                parameter1.Add("@MAHD", ma_hoa_don);
+                parameter1.Add("@SOLUONG", qty[i]);
+                var result_add_hoa_don_detail = _unitOfWork.SP_Call.Excute(SD.Chi_Tiet_Hoa_Don.CREATE, parameter1);
+                if (result_add_hoa_don_detail.success == false)
+                {
+                    ModelState.AddModelError("", result_add_hoa_don.message);
+                    AddViewBagForUpsert();
+                    return View();
+                }
+            }
+                return RedirectToAction("Index");
+
+            
+        }
+        public void AddViewBagForUpsert()
         {
             ViewBag.MaGiamGia = GetSelectItemsMaGiamGia();
             ViewBag.HoaDonId = Guid.NewGuid();
@@ -95,43 +167,21 @@ namespace MiniShop.Controllers
             ViewBag.MatHang = GetSelectItemsMatHang();
             ViewBag.ListKhachHang = GetSelectItemsKhachHang();
             ViewBag.ListNhanVien = GetSelectItemsNhanVien();
-            return View();
         }
-        //public IActionResult Get(string id)
-        //{
-        //    var parameter = new DynamicParameters();
-        //    parameter.Add("@MAHD", id);
-        //    var result = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.GET, parameter);
-        //    if (result.success)
-        //    {
-        //        return Content(result.message, "application/json");
-        //    }
-        //    return NotFound();
-        //}
-        //public IActionResult Detail(string id)
-        //{
-        //    return View();
-        //}
-        public IActionResult GetPrice(string id)
+        public IActionResult GetDetail(string id)
         {
             var parameter = new DynamicParameters();
-            parameter.Add("@MAMH", id);
-            var result = _unitOfWork.SP_Call.Excute(SD.Mat_Hang.GET, parameter);
-            float price = 0;
-            if (result.success && result.message.Length >20)
+            parameter.Add("@MAHD", id);
+            var result = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.GETDETAIL,parameter);
+            if(result.success && result.message.Length >20)
             {
-                // chuẩn hóa cho phù hợp
-                var objstring = result.message;
-                objstring = objstring.Substring(8, objstring.Length - 9);
-                var obj = JArray.Parse(objstring);
-                // chuyển đổi thành 
-                price = float.Parse(obj[0]["GIA"].ToString());
+                return Content(result.message, "application/json");
             }
-            return Json(new { data = price });
+            return NotFound();
         }
-        [HttpPost]
-        public IActionResult Upsert(string ma_hoa_don,string nhan_vien,string khach_hang, string discount , string total_amount,string ngay_lap_hoa_don,string[] product, string[] qty)
+        public IActionResult Detail(string id)
         {
+            ViewBag.HoaDonId = id;
             return View();
         }
     }

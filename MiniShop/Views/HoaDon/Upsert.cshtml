@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label>Ngày Lập Hóa Đơn</label>
-                <input type="date" readonly class="form-control" name="ngay_lap_hoa_don" value=@ViewBag.Date />
+                <input readonly type="date"  class="form-control" name="ngay_lap_hoa_don" value=@ViewBag.Date />
 
             </div>
         </div>
@@ -71,7 +71,7 @@
             <div class="row clearfix justify-content-end" style="margin-top:20px">
                 <div class="col-md-4">
                     <table class="table table-bordered table-hover" id="tab_logic_total">
-                        <tbody>
+                        <tbody id="tableprice">
                             <tr>
                                 <th class="text-center">Tạm tính</th>
                                 <td class="text-center"><input type="number" name='sub_total' placeholder='0.00' class="form-control" id="sub_total" readonly /></td>
@@ -82,7 +82,8 @@
                                     <select name='discount' class="form-control" id="select-discount" asp-items="ViewBag.MaGiamGia">
                                         <option value="">Chọn mã giảm giá</option>
                                     </select>
-                                    <input hidden type="number" class="form-control" id="tax" placeholder="0">
+                                    <input hidden type="number" class="form-control" id="discount_percent" placeholder="0">
+                                    <input hidden type="number" class="form-control" id="discount_money" placeholder="0">
                                 </td>
                                 
                                 @*<td class="text-center">

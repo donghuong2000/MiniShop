@@ -146,5 +146,4 @@ $('#updateform').click(function () {
         }
     })
 
-}
-)
+})
