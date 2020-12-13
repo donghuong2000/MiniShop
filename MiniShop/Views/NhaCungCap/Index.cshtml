@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["title"] = "Nhà cung cấp";
+}
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách các nhà cung cấp</h6>
+            <a asp-action="Upsert" class="btn btn-primary ml-auto">Thêm nhà cung cấp</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Mã nhà cung cấp</th>
+                            <th>Tên nhà cung cấp</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>Số tài khoản</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Mã nhà cung cấp</th>
+                            <th>Tên nhà cung cấp</th>
+                            <th>Địa chỉ</th>
+                            <th>Số điện thoại</th>
+                            <th>Số tài khoản</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EditModalLabel">Chỉnh sửa thông tin</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateNhaCungCapForm" onsubmit="return false">
+                        <div class="row align-items-center">
+                            <div class="col-md-7 offset-md-2">
+                                <div hidden class="form-group">
+                                    <label>Mã Nhà cung cấp</label>
+                                    <input type="text" class="form-control" id="ma_nha_cung_cap_old" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Mã Nhà cung cấp</label>
+                                    <input type="text" class="form-control" id="ma_nha_cung_cap" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Tên nhà cung cấp</label>
+                                    <input type="text" class="form-control" id="ten_nha_cung_cap" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Địa chỉ </label>
+                                    <input type="text" class="form-control" id="dia_chi" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Số điện thoại</label>
+                                    <input type="text" class="form-control" id="sdt" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Số tài khoản</label>
+                                    <input type="text" class="form-control" id="stk" />
+                                </div>
+                                <input id="updateform" data-dismiss="modal" type="submit" value="Cập nhật" class="btn btn-outline-secondary form-control" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="~/js/build/toastr.min.js"></script>
+    <script src="~/js/nhacungcap.js"></script>
+
+}
+@section csss{
+    <link href="~/js/build/toastr.css" rel="stylesheet" />
+}
