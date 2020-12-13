@@ -43,7 +43,7 @@ namespace MiniShop.Controllers
             if (result.success)
             {
                 return Content(result.message, "application/json");
-            }
+            } 
             else
                 return NotFound("Không tìm thấy nhà cung cấp này");
         }
