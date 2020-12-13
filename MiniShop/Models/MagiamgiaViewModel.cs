@@ -9,8 +9,7 @@ namespace MiniShop.Models
     {
         public MagiamgiaViewModel()
         {
-            ProductId = new List<string>();
-            CategoryId = new List<string>();
+
             DateStart = DateTime.Now;
             DateEnd = DateTime.Now;
         }
@@ -26,13 +25,6 @@ namespace MiniShop.Models
 
         public int MaxTimeUse { get; set; }
 
-        public bool IsProductDisCount { get; set; }
 
-        public List<string> ProductId { get; set; }
-
-        public bool IsCategoryDisCount { get; set; }
-        public List<string> CategoryId { get; set; }
-
-        public bool IsAllDisCount { get; set; }
     }
 }

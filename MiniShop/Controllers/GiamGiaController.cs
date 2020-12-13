@@ -81,30 +81,7 @@ namespace MiniShop.Controllers
                     vm.Percent = int.Parse(obj[0]["PT_GIAM"].ToString());
                     vm.MaxDisCount = int.Parse(obj[0]["TIENGIAM"].ToString());
                     vm.MaxTimeUse = int.Parse(obj[0]["LANSUDUNGMAX"].ToString());
-                    //get phân loại của mã giảm giá đó
-                    objString = _unitOfWork.SP_Call.Excute("GIAM_GIA_GETGGPL", parameter).message;
-                    objString = objString.Substring(8, objString.Length - 9);
-                    if(objString !="" )
-                    {
-                        obj = JArray.Parse(objString);
-                        foreach (var item in obj)
-                        {
-                            vm.IsCategoryDisCount = true;
-                            vm.CategoryId.Add(item["MAPL"].ToString());
-                        }
-                    }
-                    //get sản phẩm của mã giảm giá đó
-                    objString = _unitOfWork.SP_Call.Excute("GIAM_GIA_GETGGMH", parameter).message;
-                    objString = objString.Substring(8, objString.Length - 9);
-                    if (objString != "")
-                    {
-                        obj = JArray.Parse(objString);
-                        foreach (var item in obj)
-                        {
-                            vm.IsProductDisCount = true;
-                            vm.ProductId.Add(item["MAMH"].ToString());
-                        }
-                    }   
+                   
                 }    
             }
             return View(vm);
@@ -113,8 +90,6 @@ namespace MiniShop.Controllers
         public IActionResult Upsert(MagiamgiaViewModel vm)
         {
             
-            ViewBag.PhanLoaiList = GetSelectItemsPhanLoai();
-            ViewBag.SanPhamList = GetSelectItemsMatHang();
             if(ModelState.IsValid)
             {
                 var parameter = new DynamicParameters();
@@ -136,31 +111,7 @@ namespace MiniShop.Controllers
                     var res = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.CREATE, parameter);
                     if(res.success)
                     {
-                        if (vm.IsAllDisCount)
-                        {
-                            return RedirectToAction("index");
-
-                        }
-                        if (vm.IsCategoryDisCount)
-                        {
-                            foreach (var item in vm.CategoryId)
-                            {
-                                var p = new DynamicParameters();
-                                p.Add("@MAPL", item);
-                                p.Add("@MAGG", vm.Id);
-                                _unitOfWork.SP_Call.Excute(SD.Giam_Gia_Phan_Loai.CREATE,p);
-                            }
-                        }
-                        if (vm.IsProductDisCount)
-                        {
-                            foreach (var item in vm.ProductId)
-                            {
-                                var p = new DynamicParameters();
-                                p.Add("@MAMH", item);
-                                p.Add("@MAGG", vm.Id);
-                                _unitOfWork.SP_Call.Excute(SD.Giam_Gia_San_Phan.CREATE, p);
-                            }
-                        }
+                       
                         return RedirectToAction("index");
                     }
                     ModelState.AddModelError("", res.message);
@@ -172,34 +123,6 @@ namespace MiniShop.Controllers
                     var res = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.UPDATE, parameter);
                     if (res.success)
                     {
-                        var pa = new DynamicParameters();
-                        pa.Add("@MAGG", vm.Id);
-                        _unitOfWork.SP_Call.Excute(SD.Giam_Gia.CLEAR_REF,pa );
-                        if (vm.IsAllDisCount)
-                        {
-                            return RedirectToAction("index");
-
-                        }
-                        if (vm.IsCategoryDisCount)
-                        {
-                            foreach (var item in vm.CategoryId)
-                            {
-                                var p = new DynamicParameters();
-                                p.Add("@MAPL", item);
-                                p.Add("@MAGG", vm.Id);
-                                _unitOfWork.SP_Call.Excute(SD.Giam_Gia_Phan_Loai.CREATE, p);
-                            }
-                        }
-                        if (vm.IsProductDisCount)
-                        {
-                            foreach (var item in vm.ProductId)
-                            {
-                                var p = new DynamicParameters();
-                                p.Add("@MAMH", item);
-                                p.Add("@MAGG", vm.Id);
-                                _unitOfWork.SP_Call.Excute(SD.Giam_Gia_San_Phan.CREATE, p);
-                            }
-                        }
                         return RedirectToAction("index");
                     }
                     ModelState.AddModelError("", res.message);
