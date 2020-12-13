@@ -6,21 +6,18 @@
 $(document).ready(function () {
     $('#dataTable').DataTable({
         "ajax": {
-            "url": "/HoaDon/GetAll"
+            "url": "/DonNhapHang/GetAll"
         },
         "columns": [
-            { "data": "MAHD" },
-            { "data": "MAKH" },
-            { "data": "MANV" },
-            { "data": "NGAYLHD" },
-            { "data": "TONGTIEN" },
-            { "data": "MAGIAMGIA" },
+            { "data": "MADNH" },
+            { "data": "MANCC" },
+            { "data": "NGAYNHAP" },
             {
-                "data": "MAHD",
+                "data": "MADNH",
                 "render": function (data) {
                     return `
                              <div class="text-center">
-                                <a href="HoaDon/Detail/${data}"  class="btn btn-success text-white btn-get" style="cursor:pointer">
+                                <a href="DonNhapHang/Detail/${data}"  class="btn btn-success text-white btn-get" style="cursor:pointer">
                                    <i class="fas fa-info-circle"></i>
                                 </a>
                             </div>                           

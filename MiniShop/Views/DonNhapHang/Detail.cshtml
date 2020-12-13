@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="invoice-title">
+                <h2>Đơn Nhập Hàng #</h2><h3 class="pull-right" id="donnhaphangid">@ViewBag.DonNhapHangId</h3>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <address>
+                        <strong>Nhà cung cấp đơn hàng </strong><br>
+                        <span id="nccid"></span><br />
+                        <span id="nccname"></span><br />
+                    </address>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <address>
+                        <strong>Ngày Nhập:</strong>
+                        <span id="dateadded"></span><br />
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Chi Tiết Đơn Nhập Hàng</strong></h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <td><strong>Mã Mặt Hàng</strong></td>
+                                    <td class="text-center"><strong>Tên Mặt Hàng</strong></td>
+                                    <td class="text-center"><strong>Số Lượng</strong></td>
+                                </tr>
+                            </thead>
+                            <tbody id="productdetail">
+                                <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                @*<tr>
+                                        <td>BS-200</td>
+                                        <td class="text-center">$10.99</td>
+                                        <td class="text-center">1</td>
+                                        <td class="text-center">$10.99</td>
+                                        <td class="text-right">$10.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="thick-line"></td>
+                                        <td class="thick-line"></td>
+
+                                        <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                                        <td class="thick-line text-right">$670.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-center"><strong>Shipping</strong></td>
+                                        <td class="no-line text-right">$15</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="no-line"></td>
+                                        <td class="no-line"></td>
+                                        <td class="no-line text-center"><strong>Total</strong></td>
+                                        <td class="no-line text-right">$685.99</td>
+                                    </tr>*@
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Header{
+    <style>
+        .invoice-title h2, .invoice-title h3 {
+            display: inline-block;
+        }
+
+        .table > tbody > tr > .no-line {
+            border-top: none;
+        }
+
+        .table > thead > tr > .no-line {
+            border-bottom: none;
+        }
+
+        .table > tbody > tr > .thick-line {
+            border-top: 2px solid;
+        }
+    </style>
+
+}
+@section Scripts
+{
+    <script src="~/js/chitietdonnhaphang.js"></script>
+}

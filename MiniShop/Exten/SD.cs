@@ -118,6 +118,7 @@ namespace MiniShop.Exten
             public static string GET = "DON_NHAP_HANG_GET";
             public static string UPDATE = "DON_NHAP_HANG_UPDATE";
             public static string DELETE = "DON_NHAP_HANG_DELETE";
+            public static string GETDETAIL = "DON_NHAP_HANG_GET_DETAILS";
         }
         public static class Chi_Tiet_Hoa_Don
         {
