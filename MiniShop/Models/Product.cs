@@ -7,14 +7,17 @@ namespace MiniShop.Models
 {
     public class Product
     {
-        public Product(string productid,string productname,float productprice)
+        
+        public string productId { get; set; }
+        public int productQuantity { get; set; }
+        public Product()
+        {
+
+        }
+        public Product(string productid, int productquantity)
         {
             productId = productid;
-            productName = productname;
-            productPrice = productprice;
+            productQuantity = productquantity;
         }
-        public string productId { get; set; }
-        public string productName { get; set; }
-        public float productPrice { get; set; }
     }
 }

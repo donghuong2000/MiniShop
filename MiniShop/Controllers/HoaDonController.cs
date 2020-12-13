@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MiniShop.Exten;
+using MiniShop.Models;
 using MiniShop.Repository;
 using MiniShop.Repository.IRepository;
 using Newtonsoft.Json.Linq;
@@ -124,37 +125,65 @@ namespace MiniShop.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Upsert(string ma_hoa_don, string khach_hang, string nhan_vien,  string ngay_lap_hoa_don,string total_amount,string discount ,string[] product, string[] qty)
+        public IActionResult Upsert(string ma_hoa_don, string khach_hang, string nhan_vien,  string ngay_lap_hoa_don,string total_amount,string discount ,string[] product, int[] qty)
         {
-            var parameter = new DynamicParameters();
-            parameter.Add("@MAHD",ma_hoa_don);
-            parameter.Add("@MAKH", khach_hang);
-            parameter.Add("@MANV", nhan_vien);
-            parameter.Add("@NGAYLHD", ngay_lap_hoa_don);
-            parameter.Add("@TONGTIEN", total_amount);
-            parameter.Add("@MAGIAMGIA", discount);
-            var result_add_hoa_don = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.CREATE, parameter);
-            if(result_add_hoa_don.success == false)
+            var stt = Check_Quantity_Upper_Zero(qty);
+            if (product.Length == 1 && product[0] == null)
             {
-                ModelState.AddModelError("", result_add_hoa_don.message);
+                ModelState.AddModelError("", "Hóa đơn không có mặt hàng nào cả, vui lòng thêm vào");
                 AddViewBagForUpsert();
                 return View();
             }
-            DynamicParameters parameter1;
-            for(int i=0;i<product.Length;i++)
+            else if (qty.Length==0)
             {
-                parameter1 = new DynamicParameters();
-                parameter1.Add("@MAMH", product[i]);
-                parameter1.Add("@MAHD", ma_hoa_don);
-                parameter1.Add("@SOLUONG", qty[i]);
-                var result_add_hoa_don_detail = _unitOfWork.SP_Call.Excute(SD.Chi_Tiet_Hoa_Don.CREATE, parameter1);
-                if (result_add_hoa_don_detail.success == false)
+                ModelState.AddModelError("", "Số lượng của mặt hàng thứ 1 thuộc hóa đơn phải lớn hơn 0");
+                AddViewBagForUpsert();
+                return View();
+            }
+            else if (stt.Count>=1)
+            {
+                foreach(var item in stt)
+                {
+                    ModelState.AddModelError("", "Số lượng của mặt hàng thứ " + item + " thuộc hóa đơn phải lớn hơn 0");
+                }
+                AddViewBagForUpsert();
+                return View();
+            }    
+            else
+            {
+                var parameter = new DynamicParameters();
+                parameter.Add("@MAHD", ma_hoa_don);
+                parameter.Add("@MAKH", khach_hang);
+                parameter.Add("@MANV", nhan_vien);
+                parameter.Add("@NGAYLHD", ngay_lap_hoa_don);
+                parameter.Add("@TONGTIEN", total_amount);
+                parameter.Add("@MAGIAMGIA", discount);
+                var result_add_hoa_don = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.CREATE, parameter);
+                if (result_add_hoa_don.success == false)
                 {
                     ModelState.AddModelError("", result_add_hoa_don.message);
                     AddViewBagForUpsert();
                     return View();
                 }
+                DynamicParameters parameter1;
+                var listproduct_update = Get_List_Product_Standardized_Quantity(product, qty);
+                for (int i = 0; i < listproduct_update.Count(); i++)
+                {
+                    parameter1 = new DynamicParameters();
+                    parameter1.Add("@MAMH", listproduct_update[i].productId);
+                    parameter1.Add("@MAHD", ma_hoa_don);
+                    parameter1.Add("@SOLUONG", listproduct_update[i].productQuantity);
+                    var result_add_hoa_don_detail = _unitOfWork.SP_Call.Excute(SD.Chi_Tiet_Hoa_Don.CREATE, parameter1);
+                    if (result_add_hoa_don_detail.success == false)
+                    {
+                        ModelState.AddModelError("", result_add_hoa_don_detail.message);
+                        AddViewBagForUpsert();
+                        return View();
+                    }
+                }
             }
+           
+            
                 return RedirectToAction("Index");
 
             
@@ -183,6 +212,36 @@ namespace MiniShop.Controllers
         {
             ViewBag.HoaDonId = id;
             return View();
+        }
+        public List<Product> Get_List_Product_Standardized_Quantity (string[] product , int[] quantity)
+        {
+            List<Product> listproducts = new List<Product>() ;
+            for(int i=0; i < product.Length; i++)
+            {
+                Product p = new Product(product[i],quantity[i]);
+                listproducts.Add(p);
+            } // tao ra 1 list product tu 2 mang product va quantity
+            var newProductList = listproducts.GroupBy(x => x.productId)
+                .Select(x => new
+                {
+                    productid = x.Key,
+                    productQuantity = x.Sum(y => y.productQuantity)
+                }).ToList();
+            
+            var listproduct_update = newProductList.Select(x => new Product { productId = x.productid, productQuantity = x.productQuantity }).ToList();
+            return listproduct_update;
+        }
+        public List<string> Check_Quantity_Upper_Zero(int [] quantity)
+        {
+            List<string> STT= new List<string>();
+            for(int i=0;i<quantity.Length;i++)
+            {
+                if(quantity[i] == 0)
+                {
+                    STT.Add((i+1).ToString());
+                }
+            }
+            return STT;
         }
     }
 
