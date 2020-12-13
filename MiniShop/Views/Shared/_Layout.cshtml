@@ -168,6 +168,49 @@
                     </div>
                 </div>
             </li>
+            <!-- Nav Item - Kho Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKho" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-tags"></i>
+                    <span>Kho hàng</span>
+                </a>
+                <div id="collapseKho" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Hành Động</h6>
+                        <a class="collapse-item" asp-action="index" asp-controller="kho">Kiểm kho</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - nhà cung cấp Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNhaCungCap" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-tags"></i>
+                    <span>Nhà cung cấp</span>
+                </a>
+                <div id="collapseNhaCungCap" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Hành Động</h6>
+                        <a class="collapse-item" asp-action="upsert" asp-controller="nhacungcap">Thêm nhà cung cấp</a>
+                        <a class="collapse-item" asp-action="index" asp-controller="nhacungcap">Danh sách nhà cung cấp</a>
+                    </div>
+                </div>
+            </li>
+            <!-- Nav Item - Đơn nhập hàng Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDonNhapHang" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-tags"></i>
+                    <span>Đơn nhập hàng</span>
+                </a>
+                <div id="collapseDonNhapHang" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Hành Động</h6>
+                        <a class="collapse-item" asp-action="upsert" asp-controller="donnhaphang">Thêm đơn nhập hàng</a>
+                        <a class="collapse-item" asp-action="index" asp-controller="donnhaphang">Danh sách đơn nhập hàng</a>
+                        <a class="collapse-item" asp-action="detail" asp-controller="donnhaphang">Chi tiết đơn nhập hàng</a>
+                    </div>
+                </div>
+            </li>
             <!-- Divider -->
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["title"] = "Kho hàng";
+}
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách hàng trong kho</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Mã giảm giá</th>
+                            <th>Tên</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Phần trăm</th>
+                            <th>Giảm tối đa</th>
+                            <th>Số lần giảm còn lại</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Mã giảm giá</th>
+                            <th>Tên</th>
+                            <th>Ngày bắt đầu</th>
+                            <th>Ngày kết thúc</th>
+                            <th>Phần trăm</th>
+                            <th>Giảm tối đa</th>
+                            <th>Số lần giảm còn lại</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+@section Scripts{
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="~/js/build/toastr.min.js"></script>
+
+    <script src="~/js/kho.js"></script>
+
+}
+@section csss{
+    <link href="~/js/build/toastr.css" rel="stylesheet" />
+
+}
+
+
