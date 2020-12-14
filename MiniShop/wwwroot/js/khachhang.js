@@ -19,14 +19,14 @@ $(document).ready(function () {
             { "data": "LOAI_KHACH_HANG.0.TENLOAI" },
 
             {
-                "data": "MANV",
+                "data": "MAKH",
                 "render": function (data) {
                     return `
                              <div class="text-center">
                                 <a data-toggle="modal" data-target="#EditModal" data-whatever="${data}" class="btn btn-success text-white" style="cursor:pointer">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a onClick=Delete("/nhanvien/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                                <a onClick=Delete("/khachhang/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>                           
@@ -104,18 +104,14 @@ $('#EditModal').on('show.bs.modal', function (event) {
         method: 'GET',
         url: '/khachhang/get/' + idname,
         success: function (data) {
-           
-            modal.find('#ma_nhan_vien').val(data.data[0].MANV)
-            modal.find('#ma_nhan_vien_old').val(data.data[0].MANV)
-            modal.find('#ten_nhan_vien').val(data.data[0].TENNV)
-            modal.find('#ngay_sinh').val(data.data[0].NGAYSINH)
-            modal.find('#gioi_tinh').val(data.data[0].GIOITINH)
+            modal.find('#ma').val(data.data[0].MAKH)
+            modal.find('#tkh').val(data.data[0].TENKH)
+            modal.find('#ns').val(data.data[0].NGAYSINH)
             modal.find('#cmnd').val(data.data[0].CMND)
             modal.find('#sdt').val(data.data[0].SDT)
-            modal.find('#chuc_vu').val(data.data[0].CHUCVU)
-            modal.find('#ngay_lam_viec').val(data.data[0].NGAYLAMVIEC)
-            modal.find('#dia_chi').val(data.data[0].DIACHI)
-            modal.find('#user_name').val(data.data[0].USERNAME)
+            modal.find('#gt').val(data.data[0].GIOITINH)
+            modal.find('#dc').val(data.data[0].DIACHI)
+            modal.find('#lkh').val(data.data[0].LOAIKH)
         }
     })
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -124,19 +120,18 @@ $('#EditModal').on('show.bs.modal', function (event) {
 })
 
 $('#updateform').click(function () {
-    var a = $('#ma_nhan_vien').val()
-    var b = $('#ma_nhan_vien_old').val()
-    var c = $('#ten_nhan_vien').val()
-    var d = $('#ngay_sinh').val()
-    var e = $('#gioi_tinh').val()
-    var f = $('#cmnd').val()
-    var g = $('#sdt').val()
-    var h = $('#chuc_vu').val()
-    var k = $('#dia_chi').val()
-    var l = $('#user_name').val()
+    var a = $('#tkh').val()
+    var b = $('#ns').val()
+    var c = $('#cmnd').val()
+    var d = $('#sdt').val()
+    var e = $('#gt').val()
+    var f = $('#dc').val()
+    var g = $('#lkh').val()
+    var h = $('#ma').val()
+  
     $.ajax({
         method: 'POST',
-        data: {a:a,b:b,c:c,d:d,e:e,f:f,g:g,h:h,k:k,l:l},
+        data: {a:a,b:b,c:c,d:d,e:e,f:f,g:g,h:h},
         url: '/khachhang/update/',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (data) {

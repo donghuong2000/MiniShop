@@ -68,8 +68,8 @@
         <div id="collapseDonHang" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Hành Động</h6>
-                <a class="collapse-item" asp-action="upsert" asp-controller="donhang">Tạo đơn hàng</a>
-                <a class="collapse-item" asp-action="index" asp-controller="donhang">danh sách đơn hàng</a>
+                <a class="collapse-item" asp-action="upsert" asp-controller="hoadon">Tạo đơn hàng</a>
+                <a class="collapse-item" asp-action="index" asp-controller="hoadon">danh sách đơn hàng</a>
             </div>
         </div>
     </li>
@@ -100,7 +100,7 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" asp-action="index" asp-controller="kho" data-toggle="collapse" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-warehouse"></i>
             <span>Kho Hàng</span>
         </a>
@@ -171,8 +171,8 @@
         <div id="collapsenh" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Hành Động</h6>
-                <a class="collapse-item" asp-action="upsert" asp-controller="nhacungcap">Tạo phiếu nhập hàng</a>
-                <a class="collapse-item" asp-action="index" asp-controller="giamgia">danh phiếu nhập hàng</a>
+                <a class="collapse-item" asp-action="upsert" asp-controller="donnhaphang">Tạo phiếu nhập hàng</a>
+                <a class="collapse-item" asp-action="index" asp-controller="donnhaphang">danh phiếu nhập hàng</a>
             </div>
         </div>
     </li>
@@ -232,7 +232,13 @@ else
                 </div>
             </div>
         </li>
-        
+        <li class="nav-item">
+            <a class="nav-link collapsed" asp-action="index" asp-controller="kho" data-toggle="collapse" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-warehouse"></i>
+                <span>Kho Hàng</span>
+            </a>
+
+        </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSanPham" aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-boxes"></i>
@@ -246,7 +252,19 @@ else
                 </div>
             </div>
         </li>
-       
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDonHang" aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-file-invoice"></i>
+                <span>Đơn hàng</span>
+            </a>
+            <div id="collapseDonHang" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Hành Động</h6>
+                    <a class="collapse-item" asp-action="upsert" asp-controller="hoadon">Tạo đơn hàng</a>
+                    <a class="collapse-item" asp-action="index" asp-controller="hoadon">danh sách đơn hàng</a>
+                </div>
+            </div>
+        </li>
         <!-- Nav Item - khách hàng  Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKhachHang" aria-expanded="true" aria-controls="collapseUtilities">

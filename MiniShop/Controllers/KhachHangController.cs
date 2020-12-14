@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MiniShop.Exten;
 using MiniShop.Repository.IRepository;
+using Newtonsoft.Json.Linq;
 
 namespace MiniShop.Controllers
 {
@@ -18,22 +20,30 @@ namespace MiniShop.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.LKH = GetSelectItemsLoaiKH();
             return View();
         }
         [HttpGet]
         public IActionResult Upsert()
         {
+            ViewBag.LKH = GetSelectItemsLoaiKH();
             return View();
         }
         [HttpPost]
-        public IActionResult Upsert(string ma_loai_khach_hang, string ten_loai_khach_hang)
+        public IActionResult Upsert(string tkh, string ns, string cmnd, string sdt, string dc, string gt, string lkh)
         {
             if (ModelState.IsValid)
             {
 
                 var parameter = new DynamicParameters();
-                parameter.Add("@MALOAIKH", ma_loai_khach_hang);
-                parameter.Add("@TENLOAI", ten_loai_khach_hang);
+                parameter.Add("@MAKH",Guid.NewGuid().ToString());
+                parameter.Add("@TENKH", tkh);
+                parameter.Add("@GIOITINH", gt);
+                parameter.Add("@NGAYSINH", ns);
+                parameter.Add("@CMND", cmnd);
+                parameter.Add("@SDT", sdt);
+                parameter.Add("@DIACHI", dc);
+                parameter.Add("@LOAIKH", lkh);
                 var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.CREATE, parameter);
                 if (result.success)
                 {
@@ -41,8 +51,6 @@ namespace MiniShop.Controllers
                 }
                 else
                 {
-                    if (result.message.Contains("duplicate"))
-                        result.message = "Mã phân loại đã tồn tại";
                     ModelState.AddModelError("", result.message);
                 }
             }
@@ -57,10 +65,21 @@ namespace MiniShop.Controllers
             }
             return NotFound();
         }
+        private IEnumerable<SelectListItem> GetSelectItemsLoaiKH()
+        {
+            string objstring = _unitOfWork.SP_Call.Excute(SD.Loai_Khach_Hang.GET_ALL).message;
+            // chuẩn hóa cho phù hợp
+            objstring = objstring.Substring(8, objstring.Length - 9);
+            var obj = JArray.Parse(objstring);
+            // chuyển đổi thành selectlist item
+
+            var list = obj.Select(x => new SelectListItem(x["TENLOAI"].ToString(), x["MALOAIKH"].ToString()));
+            return list;
+        }
         public IActionResult Get(string id)
         {
             var parameter = new DynamicParameters();
-            parameter.Add("@MALOAIKH", id);
+            parameter.Add("@MAKH", id);
             var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.GET, parameter);
             if (result.success)
             {
@@ -69,15 +88,25 @@ namespace MiniShop.Controllers
             return NotFound();
         }
         [HttpPost]
-        public IActionResult Update(string a, string b, string c)
+        public IActionResult Update(string a, string b, string c, string d, string e, string f,string g,string h)
         {
-            //        var a = $('#ma_loai_khach_hang').val()
-            //var b = $('#ma_loai_khach_hang_old').val()
-            //var c = $('#ten_loai_khach_hang').val()
+    //        var a = $('#tkh').val()
+    //var b = $('#ns').val()
+    //var c = $('#cmnd').val()
+    //var d = $('#sdt').val()
+    //var e = $('#gt').val()
+    //var f = $('#dc').val()
+    //var g = $('#lkh').val()
+    //var h = $('#ma').val()
             var parameter = new DynamicParameters();
-            parameter.Add("@MALOAIKHOLD", b);
-            parameter.Add("@MALOAIKH", a);
-            parameter.Add("@TENLOAI", c);
+            parameter.Add("@MAKH", h);
+            parameter.Add("@TENKH", a);
+            parameter.Add("@GIOITINH", e);
+            parameter.Add("@NGAYSINH", b);
+            parameter.Add("@CMND", c);
+            parameter.Add("@SDT", d);
+            parameter.Add("@DIACHI", f);
+            parameter.Add("@LOAIKH", g);
             var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.UPDATE, parameter);
             if (result.success)
             {
@@ -90,7 +119,7 @@ namespace MiniShop.Controllers
         public IActionResult Delete(string id)
         {
             var parameter = new DynamicParameters();
-            parameter.Add("@MALOAIKH", id);
+            parameter.Add("@MAKH", id);
             var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.DELETE, parameter);
             if (result.success)
             {

@@ -54,56 +54,49 @@
                 <div class="modal-body">
                     <form id="updateNhanvienForm" onsubmit="return false">
                         <div class="row align-items-center">
-                            <div hidden class="form-group">
-                                <label>Mã nhan vien</label>
-                                <input type="text" class="form-control" id="ma_nhan_vien_old" />
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col-md-7 offset-md-2">
                                 <div class="form-group">
-                                    <label>Mã Nhân Viên</label>
-                                    <input type="text" class="form-control" id="ma_nhan_vien" />
+                                    <label>Mã khách hàng</label>
+                                    <input type="text" class="form-control" id="ma" readonly />
                                 </div>
                                 <div class="form-group">
-                                    <label>Tên nhân viên</label>
-                                    <input type="text" class="form-control" id="ten_nhan_vien" />
+                                    <label>Tên khách hàng</label>
+                                    <input type="text" class="form-control" id="tkh" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Ngày Sinh</label>
-                                    <input type="date" class="form-control" id="ngay_sinh" />
+                                    <label>Ngày sinh</label>
+                                    <input type="date" class="form-control" id="ns" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Giới tính</label>
-                                    <select class="form-control" id="gioi_tinh">
-                                        <option value="nam">NAM</option>
-                                        <option value="nu">Nữ</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>CMND</label>
+                                    <label>CMND </label>
                                     <input type="text" class="form-control" id="cmnd" />
                                 </div>
                                 <div class="form-group">
-                                    <label>SĐT</label>
+                                    <label>Số điện thoại</label>
                                     <input type="text" class="form-control" id="sdt" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Ngày Làm Việc</label>
-                                    <input type="date" class="form-control" id="ngay_lam_viec" />
+                                    <label>Địa chỉ</label>
+                                    <input type="text" class="form-control" id="dc" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Chức vụ</label>
-                                    <select asp-items="@ViewBag.ListChucVu" class="form-control" id="chuc_vu">
+                                    <label>Giới tính</label>
+                                    <select class="form-control" id="gt">
+                                        <option value="nam">Nam</option>
+                                        <option value="nu">Nữ</option>
                                     </select>
                                 </div>
-                            </div>
-                            <input id="updateform" data-dismiss="modal" type="submit" value="Cập nhập" class="btn btn-outline-secondary form-control" />
+                                <div class="form-group">
+                                    <label>Loại khách hàng</label>
+                                    <select class="form-control" id="lkh" asp-items="ViewBag.LKH">
+                                    </select>
 
+                                </div>
+                                <input id="updateform" data-dismiss="modal" type="submit" value="Cập nhật" class="btn btn-outline-secondary form-control" />
+                            </div>
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
