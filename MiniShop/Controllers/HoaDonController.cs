@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -40,9 +41,12 @@ namespace MiniShop.Controllers
 
 
 
-        private IEnumerable<SelectListItem> GetSelectItemsNhanVien()
+        private IEnumerable<SelectListItem> GetCurentItemsNhanVien()
         {
-            string objstring = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.GET_ALL).message;
+
+            var parameter = new DynamicParameters();
+            parameter.Add("@MANV", HttpContext.Session.GetString("U"));
+            string objstring = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.GET,parameter).message;
             // chuẩn hóa cho phù hợp
             objstring = objstring.Substring(8, objstring.Length - 9);
             var obj = JArray.Parse(objstring);
@@ -195,7 +199,7 @@ namespace MiniShop.Controllers
             ViewBag.Date = DateTime.Now.ToString("yyyy-MM-dd");
             ViewBag.MatHang = GetSelectItemsMatHang();
             ViewBag.ListKhachHang = GetSelectItemsKhachHang();
-            ViewBag.ListNhanVien = GetSelectItemsNhanVien();
+            ViewBag.ListNhanVien = GetCurentItemsNhanVien();
         }
         public IActionResult GetDetail(string id)
         {

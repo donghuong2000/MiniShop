@@ -10,26 +10,8 @@ $(document).ready(function () {
         },
         "columns": [
             { "data": "MAMH" },
-            { "data": "TRANGTHAI" },
+            { "data": "MAT_HANG.0.TEN" },
             { "data": "SOLUONG" },
-            {
-                "data": "MAMH",
-                "render": function (data) {
-                    return `
-                             <div class="text-center">
-                                <a data-toggle="modal" data-target="#EditModal" data-whatever="${data}" class="btn btn-success text-white" style="cursor:pointer">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <a onClick=Delete("/chucvu/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </div>                           
-                            
-                           `;
-                }
-  
-            }
-             
         ]
 
     });
