@@ -146,6 +146,7 @@ namespace MiniShop.Controllers
                 foreach(var item in stt)
                 {
                     ModelState.AddModelError("", "Số lượng của mặt hàng thứ " + item + " thuộc hóa đơn phải lớn hơn 0");
+                    ModelState.AddModelError("", "--------------------------------------------------------------------");
                 }
                 AddViewBagForUpsert();
                 return View();
@@ -155,8 +156,10 @@ namespace MiniShop.Controllers
                 foreach(var item in list_check_quantity)
                 {
                     ModelState.AddModelError("", "Số lượng tồn kho của mặt hàng có mã " + item.productId + " chỉ còn " + item.productQuantity );
-                    ModelState.AddModelError("", "Số lượng tồn kho của sản phẩm sau khi thực hiện tạo hóa đơn phải lớn hơn 20 ");
+                    ModelState.AddModelError("", "Mặt hàng có mã " + item.productId + " chỉ được bán ra tối đa " + (item.productQuantity - 20) + " sản phẩm để không vi phạm quy định tồn kho");
+                    ModelState.AddModelError("", "--------------------------------------------------------------------------------------------------");
                 }
+                ModelState.AddModelError("", " ! Quy định tồn kho : Số lượng tồn kho của mặt hàng sau khi thực hiện tạo hóa đơn phải từ 20 sản phẩm trở lên ");
                 AddViewBagForUpsert();
                 return View();
             }
