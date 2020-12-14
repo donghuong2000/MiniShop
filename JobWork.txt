@@ -12,3 +12,7 @@ chưa sử lí Delete
 	+ đã tạo view index, 
 	+chưa CRUD
 	+ còn thiếu nhiều
+
+
+- Hóa Đơn Controller:
+- 

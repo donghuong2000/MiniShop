@@ -12,7 +12,9 @@ namespace MiniShop.Repository
     public class SP_Call : ISP_Call
     {
 
+
         public static string ConnectionString = "Server=.;Database=NHOM3;Trusted_Connection=True;";
+
         public SP_Call()
         {
 

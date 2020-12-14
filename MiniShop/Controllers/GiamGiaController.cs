@@ -134,6 +134,17 @@ namespace MiniShop.Controllers
             return View(vm);
 
         }
+        public IActionResult Get(string id)
+        {
+            var parameter = new DynamicParameters();
+            parameter.Add("@MAGG", id);
+            var result = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.GET, parameter);
+            if (result.success)
+            {
+                return Content(result.message, "application/json");
+            }
+            return NotFound();
+        }
 
         [HttpDelete]
         public IActionResult Delete(string id)
@@ -147,5 +158,6 @@ namespace MiniShop.Controllers
             }
             return Json(new { success = false, message = result.message });
         }
+        
     }
 }

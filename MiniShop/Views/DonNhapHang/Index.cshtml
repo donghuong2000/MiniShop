@@ -1,6 +1,48 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
+    ViewData["title"] = "Đơn Nhập Hàng";
 }
-INDEX
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách Đơn Nhập Hàng</h6>
+            <a asp-action="Upsert" class="btn btn-primary ml-auto">Tạo Đơn Nhập Hàng</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Mã Đơn Nhập Hàng</th>
+                            <th>Mã Nhà Cung Cấp</th>
+                            <th>Mã Nhập</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Mã Đơn Nhập Hàng</th>
+                            <th>Mã Nhà Cung Cấp</th>
+                            <th>Mã Nhập</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+@section Scripts{
+    <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="~/js/build/toastr.min.js"></script>
+    <script src="~/js/donnhaphang.js"></script>
+
+}
+@section csss{
+    <link href="~/js/build/toastr.css" rel="stylesheet" />
+
+}
+
+

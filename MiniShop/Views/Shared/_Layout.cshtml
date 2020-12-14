@@ -18,7 +18,9 @@
     <link href="/favicon.ico" type="image/gif" rel="icon" />
     <!-- Custom styles for this template-->
     <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
-    @RenderSection("csss", false)
+    @RenderSection("csss",false)
+    @RenderSection("header", false)
+
 
 </head>
 
@@ -29,7 +31,10 @@
 
         <!-- Sidebar -->
 
+
+
         <partial name="LeftSidebar" />
+
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">

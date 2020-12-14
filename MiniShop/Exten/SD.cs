@@ -89,6 +89,8 @@ namespace MiniShop.Exten
             public static string GET =    "HOA_DON_GET";
             public static string UPDATE = "HOA_DON_UPDATE";
             public static string DELETE = "HOA_DON_DELETE";
+            public static string GETMAXID = "HOA_DON_GET_MAX_ID";
+            public static string GETDETAIL = "HOA_DON_GET_DETAILS";
         }
         public static class Giam_Gia
         {
@@ -124,6 +126,7 @@ namespace MiniShop.Exten
             public static string GET = "DON_NHAP_HANG_GET";
             public static string UPDATE = "DON_NHAP_HANG_UPDATE";
             public static string DELETE = "DON_NHAP_HANG_DELETE";
+            public static string GETDETAIL = "DON_NHAP_HANG_GET_DETAILS";
         }
         public static class Chi_Tiet_Hoa_Don
         {
