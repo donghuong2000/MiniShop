@@ -7,7 +7,7 @@ using MiniShop.Repository.IRepository;
 
 namespace MiniShop.Controllers
 {
-    public class NhaCungCapController : Controller
+    public class NhaCungCapController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         public NhaCungCapController(IUnitOfWork unitOfWork)

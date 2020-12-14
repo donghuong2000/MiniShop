@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace MiniShop.Controllers
 {
-    public class BaseController : Controller
+    public class BaseHomeController : Controller
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -18,9 +18,7 @@ namespace MiniShop.Controllers
             {
                 context.Result = new RedirectToActionResult("login", "Identity",new {area= "" });
             }    
-            if (Currrole!=null && Currrole != "Admin")
-                context.Result = new RedirectToActionResult("deny", "Identity", new { area = "" });
-            
+           
             base.OnActionExecuting(context);
         }
     }

@@ -9,7 +9,7 @@ using MiniShop.Repository.IRepository;
 
 namespace MiniShop.Controllers
 {
-    public class ChucVuController : Controller
+    public class ChucVuController : BaseController
     {
 
         private readonly IUnitOfWork _unitOfWork;

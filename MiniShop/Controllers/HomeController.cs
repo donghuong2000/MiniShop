@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 
 namespace MiniShop.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : BaseHomeController
     {
 
         private readonly IUnitOfWork _unitOfWork;

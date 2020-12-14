@@ -22,6 +22,10 @@ namespace MiniShop.Controllers
         {
             return View();
         }
+        public IActionResult deny()
+        {
+            return View();
+        }
         [HttpPost]
         public IActionResult Login(string username,string password)
         {
