@@ -15,7 +15,7 @@ namespace MiniShop.Repository
         public ISP_Call SP_Call { get; private set; }
 
         public void Dispose()
-        {
+            {
             
         }
 

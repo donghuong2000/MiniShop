@@ -8,6 +8,14 @@ namespace MiniShop.Exten
 {
     public static class SD
     {
+
+        public static class Thong_ke
+        {
+            public static string DOANH_THU_THANG = "THONG_KE_DOANH_THU_THANG";
+            public static string DOANH_THU_10_NGAY_GAN_NHAT = "DOANH_THU_10_NGAY_GAN_NHAT";
+
+        }
+
         public static class Phan_Loai
         {
             public static string CREATE = "PHAN_LOAI_CREATE";
