@@ -6,22 +6,23 @@
 $(document).ready(function () {
     $('#dataTable').DataTable({
         "ajax": {
-            "url": "/nhanvien/GetAll"
+            "url": "/NhaCungCap/getall"
         },
         "columns": [
-            { "data": "MANV" },
-            { "data": "TENNV" },
-            { "data": "NGAYLAMVIEC" },
-            { "data": "CHUC_VU.0.TENCHUCVU" },
+            { "data": "MANCC" },
+            { "data": "TENNCC" },
+            { "data": "DIACHI" },
+            { "data": "SDT" },
+            { "data": "STK" },
             {
-                "data": "MANV",
+                "data": "MANCC",
                 "render": function (data) {
                     return `
                              <div class="text-center">
                                 <a data-toggle="modal" data-target="#EditModal" data-whatever="${data}" class="btn btn-success text-white" style="cursor:pointer">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a onClick=Delete("/nhanvien/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
+                                <a onClick=Delete("/NhaCungCap/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>                           
@@ -69,7 +70,7 @@ function Delete(url) {
                     else {
                         swalWithBootstrapButtons.fire(
                             'Error',
-                            data.message,
+                            'Can not delete this, maybe it not exit or error from sever',
                             'error'
                         )
                     }
@@ -97,20 +98,15 @@ $('#EditModal').on('show.bs.modal', function (event) {
     var modal = $(this)
     $.ajax({
         method: 'GET',
-        url: '/nhanvien/get/' + idname,
+        url: '/NhaCungCap/get/' + idname,
         success: function (data) {
-           
-            modal.find('#ma_nhan_vien').val(data.data[0].MANV)
-            modal.find('#ma_nhan_vien_old').val(data.data[0].MANV)
-            modal.find('#ten_nhan_vien').val(data.data[0].TENNV)
-            modal.find('#ngay_sinh').val(data.data[0].NGAYSINH)
-            modal.find('#gioi_tinh').val(data.data[0].GIOITINH)
-            modal.find('#cmnd').val(data.data[0].CMND)
-            modal.find('#sdt').val(data.data[0].SDT)
-            modal.find('#chuc_vu').val(data.data[0].CHUCVU)
-            modal.find('#ngay_lam_viec').val(data.data[0].NGAYLAMVIEC)
+            modal.find('#ma_nha_cung_cap').val(data.data[0].MANCC)
+            modal.find('#ma_nha_cung_cap_old').val(data.data[0].MANCC)
+            modal.find('#ten_nha_cung_cap').val(data.data[0].TENNCC)
             modal.find('#dia_chi').val(data.data[0].DIACHI)
-            modal.find('#user_name').val(data.data[0].USERNAME)
+            modal.find('#sdt').val(data.data[0].SDT)
+            modal.find('#stk').val(data.data[0].STK)
+
         }
     })
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -119,20 +115,17 @@ $('#EditModal').on('show.bs.modal', function (event) {
 })
 
 $('#updateform').click(function () {
-    var a = $('#ma_nhan_vien').val()
-    var b = $('#ngay_lam_viec').val()
-    var c = $('#ten_nhan_vien').val()
-    var d = $('#ngay_sinh').val()
-    var e = $('#gioi_tinh').val()
-    var f = $('#cmnd').val()
-    var g = $('#sdt').val()
-    var h = $('#chuc_vu').val()
-    var k = $('#dia_chi').val()
-    var l = $('#user_name').val()
+    var oldId = $('#ma_nha_cung_cap_old').val();
+    var newId = $('#ma_nha_cung_cap').val();
+    var newnameValue = $('#ten_nha_cung_cap').val();
+    var newdiachiValue = $('#dia_chi').val();
+    var newsdtValue = $('#sdt').val();
+    var newstkValue = $('#stk').val();
+
     $.ajax({
         method: 'POST',
-        data: {a:a,b:b,c:c,d:d,e:e,f:f,g:g,h:h,k:k,l:l},
-        url: '/nhanvien/update/',
+        data: { oldId: oldId, newId: newId, ten_nha_cung_cap: newnameValue, dia_chi: newdiachiValue, sdt: newsdtValue, stk: newstkValue },
+        url: '/nhacungcap/update/',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (data) {
             if (data.success) {
@@ -140,10 +133,10 @@ $('#updateform').click(function () {
                 $('#dataTable').DataTable().ajax.reload();
             }
             else {
-
                 toastr.error(data.message);
             }
         }
     })
 
-})
+}
+)

@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,13 @@ using MiniShop.Models;
 using MiniShop.Repository.IRepository;
 using Newtonsoft.Json.Linq;
 
+
 namespace MiniShop.Controllers
 {
     public class DonNhapHangController : Controller
     {
-        public readonly IUnitOfWork _unitOfWork;
+
+        private readonly IUnitOfWork _unitOfWork;
 
         public DonNhapHangController(IUnitOfWork unitOfWork)
         {
@@ -24,6 +27,7 @@ namespace MiniShop.Controllers
         {
             return View();
         }
+
         public IActionResult GetAll()
         {
             var result = _unitOfWork.SP_Call.Excute(SD.Don_Nhap_Hang.GET_ALL);
@@ -31,6 +35,7 @@ namespace MiniShop.Controllers
             {
                 return Content(result.message, "application/json");
             }
+
             return NotFound();
         }
 
@@ -178,5 +183,4 @@ namespace MiniShop.Controllers
             return STT;
         }
     }
-
 }

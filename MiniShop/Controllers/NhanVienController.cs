@@ -57,7 +57,7 @@ namespace MiniShop.Controllers
             if(ModelState.IsValid)
             {
                 var parameter = new DynamicParameters();
-                parameter.Add("@MANV", ma_nhan_vien);
+              
                 parameter.Add("@TENNV", ten_nhan_vien);
                 parameter.Add("@GIOITINH", gioi_tinh);
                 parameter.Add("@NGAYSINH", ngay_sinh);
@@ -119,14 +119,13 @@ namespace MiniShop.Controllers
     //var l = $('#user_name').val()
             var parameter = new DynamicParameters();
             parameter.Add("@MANV", a);
-            parameter.Add("@MANVOLD",b);
             parameter.Add("@TENNV", c);
             parameter.Add("@GIOITINH", e);
             parameter.Add("@NGAYSINH",d);
+            parameter.Add("@NGAYLAMVIEC", b);
             parameter.Add("@CMND", f);
             parameter.Add("@SDT", g);
             parameter.Add("@DIACHI", k);
-            parameter.Add("@USERNAME", l);
             parameter.Add("@CHUCVU", h);
             var result = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.UPDATE, parameter);
             if (result.success)
