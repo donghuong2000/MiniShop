@@ -128,6 +128,7 @@ namespace MiniShop.Controllers
         public IActionResult Upsert(string ma_hoa_don, string khach_hang, string nhan_vien,  string ngay_lap_hoa_don,string total_amount,string discount ,string[] product, int[] qty)
         {
             var stt = Check_Quantity_Upper_Zero(qty);
+            var list_check_quantity = CHECK_ENOUGH_QUANTITY_PRODUCT(product, qty);
             if (product.Length == 1 && product[0] == null)
             {
                 ModelState.AddModelError("", "Hóa đơn không có mặt hàng nào cả, vui lòng thêm vào");
@@ -148,9 +149,20 @@ namespace MiniShop.Controllers
                 }
                 AddViewBagForUpsert();
                 return View();
-            }    
-            else
+            }
+            else if (list_check_quantity.Count >= 1)
             {
+                foreach(var item in list_check_quantity)
+                {
+                    ModelState.AddModelError("", "Số lượng tồn kho của mặt hàng có mã " + item.productId + " chỉ còn " + item.productQuantity );
+                    ModelState.AddModelError("", "Số lượng tồn kho của sản phẩm sau khi thực hiện tạo hóa đơn phải lớn hơn 20 ");
+                }
+                AddViewBagForUpsert();
+                return View();
+            }
+            else
+            { //{"data":[{"KETQUA":"0"}]}
+                
                 var parameter = new DynamicParameters();
                 parameter.Add("@MAHD", ma_hoa_don);
                 parameter.Add("@MAKH", khach_hang);
@@ -242,6 +254,34 @@ namespace MiniShop.Controllers
                 }
             }
             return STT;
+        }
+        public List<Product> CHECK_ENOUGH_QUANTITY_PRODUCT(string[] product ,int[] quantity)
+        {
+            List<Product> listproducts = new List<Product>();
+            for (int i = 0; i < product.Length; i++)
+            {
+                var parameter_check = new DynamicParameters();
+                parameter_check.Add("@MAMH", product[i]);
+                parameter_check.Add("@SOLUONG", quantity[i]);
+                var result_check = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.CHECK_ENOUGH_QUANTITY_PRODUCT, parameter_check);
+                if (result_check.success)
+                {
+                    var objstring = result_check.message;
+                    objstring = objstring.Substring(8, objstring.Length - 9);
+                    var obj = JArray.Parse(objstring);
+                    var result = int.Parse(obj[0]["KETQUA"].ToString());
+                    var quantity_remain = int.Parse(obj[0]["SOLUONGTON"].ToString());
+                    if (result == 0)
+                    {
+                        Product product_temp = new Product() { productId = product[i], productQuantity = quantity_remain };
+                        listproducts.Add(product_temp); // khong the tao duoc hoa don , vi co 1 mat hang vi pham so luong trong kho
+                        // list này hiển thị mã mặt hàng nào có số lượng tồn không đủ trong kho , kèm quantity là số lượng tồn trong kho
+                    }    
+                        
+                            
+                }
+            }
+            return listproducts;
         }
     }
 
