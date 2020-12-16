@@ -96,6 +96,7 @@ namespace MiniShop.Controllers
             }
             else
             {
+                
                 var parameter = new DynamicParameters();
                 parameter.Add("@MA_DNH", ma_don_nhap_hang);
                 parameter.Add("@MA_NCC", nha_cung_cap);
