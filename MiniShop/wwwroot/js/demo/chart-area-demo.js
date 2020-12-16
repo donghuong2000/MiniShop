@@ -1,4 +1,4 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
+﻿// Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
@@ -118,15 +118,17 @@ var myLineChart = new Chart(ctx, {
 });
 
 $(document).ready(function () {
-    ajax_chart('/home/dt10day',0);
+    ajax_chart('/home/dt10day',0); // gọi thống kê mặc khi khi mở web
 })
 
-function ajax_chart(url,data) {
+function ajax_chart(url,data) { // gọi hàm thống kê : url là đường dẫn, data là đầu vào (optional) ví dụ theo tháng, năm 
    
-    $.getJSON(url,data).done(function (response) {
-        myLineChart.data.labels = response.labels;
-        myLineChart.data.datasets[0].data = response.values; // or you can iterate for multiple datasets
-        myLineChart.update(); // finally update our chart
+    $.getJSON(url, data).done(function (response) {
+
+        // mylinechart là cái bảng chart của mình
+        myLineChart.data.labels = response.labels; // label là hàng ngang, các tiêu đề, ví du : tháng 1,tháng 2,....
+        myLineChart.data.datasets[0].data = response.values; // value là giá trị tương ứng cho từng tiêu đề...
+        myLineChart.update(); // update lại chart
     });
 }
 

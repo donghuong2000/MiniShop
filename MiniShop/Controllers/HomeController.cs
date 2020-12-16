@@ -58,7 +58,7 @@ namespace MiniShop.Controllers
                 objstring = objstring.Substring(8, objstring.Length - 9);
                 var obj = JArray.Parse(objstring);
                 var labels = obj.Select(x => x["IndividualDate"].ToString().Replace(" 12:00:00 AM","")).ToArray();
-                var values = obj.Select(x => int.Parse(x["TONG"].ToString())).ToArray();
+                var values = obj.Select(x => float.Parse(x["TONG"].ToString())).ToArray();
                 // 
                 return Json(new { labels, values });
             }
