@@ -31,11 +31,11 @@ namespace MiniShop.Controllers
         }
         [HttpPost]
         public IActionResult Upsert(string tkh, string ns, string cmnd, string sdt, string dc, string gt, string lkh)
-        {
+        { // đầu vào là name của các "Đối tượng html" trong view Upserts muốn truyền cho HttpPost để upload dữ liệu lên cho server
             if (ModelState.IsValid)
             {
 
-                var parameter = new DynamicParameters();
+                var parameter = new DynamicParameters(); // tạo 1 dynamic parameters để lưu các tham số truyền vào
                 parameter.Add("@MAKH",Guid.NewGuid().ToString());
                 parameter.Add("@TENKH", tkh);
                 parameter.Add("@GIOITINH", gt);
@@ -45,20 +45,22 @@ namespace MiniShop.Controllers
                 parameter.Add("@DIACHI", dc);
                 parameter.Add("@LOAIKH", lkh);
                 var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.CREATE, parameter);
-                if (result.success)
+                // _unitOfWork.Sp_Call.Excute là hàm excute 1 hàm SQL, với đầu vào gồm 2 biến(biến thứ nhất kiểu string là tên stored procedure,
+                //  biến thứ 2 kiểu Dynamic Parameters là tham số truyền vào cho stored procedure)
+                if (result.success) // nếu hàm thực thi thành công 
                 {
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index)); // thì trả về View Index
                 }
                 else
                 {
-                    ModelState.AddModelError("", result.message);
+                    ModelState.AddModelError("", result.message);  // nếu hàm thực thi lỗi thì trả về model error với nội dung là lỗi đó
                 }
             }
             return View();
         }
         public IActionResult GetAll()
         {
-            var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.GET_ALL);
+            var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.GET_ALL); // gọi procedure lấy danh sách Khách Hàng
             if (result.success)
             {
                 return Content(result.message, "application/json");
@@ -78,26 +80,27 @@ namespace MiniShop.Controllers
         }
         public IActionResult Get(string id)
         {
-            var parameter = new DynamicParameters();
+            var parameter = new DynamicParameters(); // tạo parameter lưu thông tin
             parameter.Add("@MAKH", id);
-            var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.GET, parameter);
+            var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.GET, parameter); // gọi procedure lấy thông tin của khách hàng
             if (result.success)
             {
                 return Content(result.message, "application/json");
             }
             return NotFound();
         }
+        //        var a = $('#tkh').val()
+        //var b = $('#ns').val()
+        //var c = $('#cmnd').val()
+        //var d = $('#sdt').val()
+        //var e = $('#gt').val()
+        //var f = $('#dc').val()
+        //var g = $('#lkh').val()
+        //var h = $('#ma').val()
         [HttpPost]
         public IActionResult Update(string a, string b, string c, string d, string e, string f,string g,string h)
         {
-    //        var a = $('#tkh').val()
-    //var b = $('#ns').val()
-    //var c = $('#cmnd').val()
-    //var d = $('#sdt').val()
-    //var e = $('#gt').val()
-    //var f = $('#dc').val()
-    //var g = $('#lkh').val()
-    //var h = $('#ma').val()
+   
             var parameter = new DynamicParameters();
             parameter.Add("@MAKH", h);
             parameter.Add("@TENKH", a);
@@ -118,9 +121,9 @@ namespace MiniShop.Controllers
         [HttpDelete]
         public IActionResult Delete(string id)
         {
-            var parameter = new DynamicParameters();
+            var parameter = new DynamicParameters(); // tạo parameter lưu thông tin
             parameter.Add("@MAKH", id);
-            var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.DELETE, parameter);
+            var result = _unitOfWork.SP_Call.Excute(SD.Khach_Hang.DELETE, parameter); // gọi stored procedure xóa Khách Hàng
             if (result.success)
             {
                 return Json(new { success = true, message = "xóa thành công" });

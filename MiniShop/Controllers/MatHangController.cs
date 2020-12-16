@@ -25,7 +25,7 @@ namespace MiniShop.Controllers
         }
         public IActionResult GetAll()
         {
-            var result = _unitOfWork.SP_Call.Excute(SD.Mat_Hang.GET_ALL);
+            var result = _unitOfWork.SP_Call.Excute(SD.Mat_Hang.GET_ALL); // gọi procedure lấy danh sách mặt hàng
             if (result.success)
             {
                 return Content(result.message, "application/json");
@@ -44,9 +44,9 @@ namespace MiniShop.Controllers
         }
         public IActionResult Get(string id)
         {
-            var parameter = new DynamicParameters();
+            var parameter = new DynamicParameters(); // tạo parameter lưu thông tin
             parameter.Add("@MAMH", id);
-            var result = _unitOfWork.SP_Call.Excute(SD.Mat_Hang.GET,parameter);
+            var result = _unitOfWork.SP_Call.Excute(SD.Mat_Hang.GET,parameter); // gọi procedure lấy thông tin của mặt hàng
             if (result.success)
             {
                 return Content(result.message, "application/json");
@@ -61,9 +61,9 @@ namespace MiniShop.Controllers
         }
         [HttpPost]
         public IActionResult Create(string a,string b, string c, string d, string e, string f)
-        {
-            ViewBag.PhanLoaiList = GetSelectItemsPhanLoai();
-            var parameter = new DynamicParameters();
+        { // đầu vào là name của các "Đối tượng html" trong view Upserts muốn truyền cho HttpPost để upload dữ liệu lên cho server
+            ViewBag.PhanLoaiList = GetSelectItemsPhanLoai(); // get danh sách tên các "Phân Loại" và truyền cho viewbag.PhanLoaiList để truyền vào view Create
+            var parameter = new DynamicParameters();  // tạo 1 dynamic parameters để lưu các tham số truyền vào
             parameter.Add("@MAMH", a);
             parameter.Add("@TENMH", b);
             parameter.Add("@NGAYSX", c);
@@ -71,16 +71,39 @@ namespace MiniShop.Controllers
             parameter.Add("@LOAIMH", e);
             parameter.Add("@GIA", f);
             var result = _unitOfWork.SP_Call.Excute(SD.Mat_Hang.CREATE, parameter);
-            if (result.success)
+            // _unitOfWork.Sp_Call.Excute là hàm excute 1 hàm SQL, với đầu vào gồm 2 biến(biến thứ nhất kiểu string là tên stored procedure,
+            //  biến thứ 2 kiểu Dynamic Parameters là tham số truyền vào cho stored procedure)
+            if (result.success) // nếu hàm thực thi thành công 
             {
-                return RedirectToAction("index");
+                return RedirectToAction("index"); // thì trả về View Index
             }
-            ModelState.AddModelError("", result.message);
+            ModelState.AddModelError("", result.message); // nếu hàm không thực thi thành công thì gán lỗi cho model error và show lên màn hình
             return View();
         }
         public IActionResult Update()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult Update(string a, string b, string c, string d, string e, string f, string g, string h, string k, string l)
+        {
+
+            var parameter = new DynamicParameters(); // tạo parameter lưu thông tin
+            parameter.Add("@MANV", a);
+            parameter.Add("@TENNV", c);
+            parameter.Add("@GIOITINH", e);
+            parameter.Add("@NGAYSINH", d);
+            parameter.Add("@NGAYLAMVIEC", b);
+            parameter.Add("@CMND", f);
+            parameter.Add("@SDT", g);
+            parameter.Add("@DIACHI", k);
+            parameter.Add("@CHUCVU", h);
+            var result = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.UPDATE, parameter); // gọi stored procedure update Nhân Viên
+            if (result.success)
+            {
+                return Json(new { success = true, message = "đã sửa thành công" });
+            }
+            return Json(new { success = false, message = result.message });
         }
 
 

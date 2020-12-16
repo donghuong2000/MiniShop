@@ -25,7 +25,7 @@ namespace MiniShop.Controllers
         //get all
         public IActionResult GetAll()
         {
-            var result = _unitOfWork.SP_Call.Excute(SD.Kho.GET_ALL);
+            var result = _unitOfWork.SP_Call.Excute(SD.Kho.GET_ALL); // gọi procedure hiển thị các mặt hàng trong kho
             if (result.success)
             {
                 return Content(result.message, "application/json");

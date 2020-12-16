@@ -31,7 +31,7 @@ namespace MiniShop.Controllers
 
         public IActionResult GetAll()
         {
-            var result = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.GET_ALL);
+            var result = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.GET_ALL); // gọi hàm lấy  danh sách hóa đơn
             if (result.success)
             {
                 return Content(result.message, "application/json");
@@ -95,9 +95,9 @@ namespace MiniShop.Controllers
 
         public IActionResult Get(string id)
         {
-            var parameter = new DynamicParameters();
+            var parameter = new DynamicParameters(); // tạo parameter lưu thông tin
             parameter.Add("@MAHD", id);
-            var result = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.GET, parameter);
+            var result = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.GET, parameter); // gọi procedure lấy thông tin của hóa đơn
             if (result.success)
             {
                 return Content(result.message, "application/json");
@@ -130,24 +130,26 @@ namespace MiniShop.Controllers
         }
         [HttpPost]
         public IActionResult Upsert(string ma_hoa_don, string khach_hang, string nhan_vien,  string ngay_lap_hoa_don,string total_amount,string discount ,string[] product, int[] qty)
-        {
-            var stt = Check_Quantity_Upper_Zero(qty);
-            var list_check_quantity = CHECK_ENOUGH_QUANTITY_PRODUCT(product, qty);
-            if (product.Length == 1 && product[0] == null)
+        { // đầu vào là name của các "Đối tượng html" trong view Upserts muốn truyền cho HttpPost để upload dữ liệu lên cho server
+            var stt_quantity_zero = Get_Quantity_Equal_Zero(qty); // gọi hàm kiểm tra xem có mặt hàng nào trong hóa đơn có số lượng = 0 không
+            var stt_product_null = Get_Product_Null(product); // gọi hàm kiểm tra xem có mặt hàng nào chưa chọn tên mặt hàng không ?
+            List<Product> list_check_quantity = new List<Product>();
+            if (stt_product_null.Count == 0)
+            list_check_quantity = CHECK_ENOUGH_QUANTITY_PRODUCT(product, qty); // gọi hàm kiểm tra xem các mặt hàng trong hóa đơn có đủ số lượng tồn để tạo hóa đơn không
+            
+            if(stt_product_null.Count >=1) // nếu có product nào bị null thì hiện lỗi tương ứng
             {
-                ModelState.AddModelError("", "Hóa đơn không có mặt hàng nào cả, vui lòng thêm vào");
+                foreach (var item in stt_product_null)
+                {
+                    ModelState.AddModelError("", "Vui lòng chọn tên mặt hàng cho mặt hàng thứ " + item);
+                    ModelState.AddModelError("", "--------------------------------------------------------------------");
+                }
                 AddViewBagForUpsert();
                 return View();
-            }
-            else if (qty.Length==0)
+            }     
+            else if (stt_quantity_zero.Count>=1) // nếu có số lượng của mặt hàng nào bằng 0 thì hiển thị lỗi
             {
-                ModelState.AddModelError("", "Số lượng của mặt hàng thứ 1 thuộc hóa đơn phải lớn hơn 0");
-                AddViewBagForUpsert();
-                return View();
-            }
-            else if (stt.Count>=1)
-            {
-                foreach(var item in stt)
+                foreach(var item in stt_quantity_zero)
                 {
                     ModelState.AddModelError("", "Số lượng của mặt hàng thứ " + item + " thuộc hóa đơn phải lớn hơn 0");
                     ModelState.AddModelError("", "--------------------------------------------------------------------");
@@ -155,7 +157,7 @@ namespace MiniShop.Controllers
                 AddViewBagForUpsert();
                 return View();
             }
-            else if (list_check_quantity.Count >= 1)
+            else if (list_check_quantity.Count >= 1) // nếu có từ 1 mặt hàng trở lên không đủ số lượng tồn thì hiển thị lỗi
             {
                 foreach(var item in list_check_quantity)
                 {
@@ -167,8 +169,8 @@ namespace MiniShop.Controllers
                 AddViewBagForUpsert();
                 return View();
             }
-            else
-            { //{"data":[{"KETQUA":"0"}]}
+            else // nếu như không có lỗi gì
+            { 
                 
                 var parameter = new DynamicParameters();
                 parameter.Add("@MAHD", ma_hoa_don);
@@ -177,25 +179,25 @@ namespace MiniShop.Controllers
                 parameter.Add("@NGAYLHD", ngay_lap_hoa_don);
                 parameter.Add("@TONGTIEN", total_amount);
                 parameter.Add("@MAGIAMGIA", discount);
-                var result_add_hoa_don = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.CREATE, parameter);
-                if (result_add_hoa_don.success == false)
+                var result_add_hoa_don = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.CREATE, parameter); // gọi hàm add hóa đơn với các thông số của hóa đơn
+                if (result_add_hoa_don.success == false) // nếu không add được thì hiển thị lỗi
                 {
-                    ModelState.AddModelError("", result_add_hoa_don.message);
+                    ModelState.AddModelError("", result_add_hoa_don.message); 
                     AddViewBagForUpsert();
                     return View();
                 }
                 DynamicParameters parameter1;
-                var listproduct_update = Get_List_Product_Standardized_Quantity(product, qty);
+                var listproduct_update = Get_List_Product_Standardized_Quantity(product, qty); // hàm tạo 1 list mặt hàng của hóa đơn từ 2 mảng product và qty(số lượng) không trùng mã mặt hàng
                 for (int i = 0; i < listproduct_update.Count(); i++)
                 {
-                    parameter1 = new DynamicParameters();
+                    parameter1 = new DynamicParameters(); 
                     parameter1.Add("@MAMH", listproduct_update[i].productId);
                     parameter1.Add("@MAHD", ma_hoa_don);
                     parameter1.Add("@SOLUONG", listproduct_update[i].productQuantity);
-                    var result_add_hoa_don_detail = _unitOfWork.SP_Call.Excute(SD.Chi_Tiet_Hoa_Don.CREATE, parameter1);
+                    var result_add_hoa_don_detail = _unitOfWork.SP_Call.Excute(SD.Chi_Tiet_Hoa_Don.CREATE, parameter1); // gọi hàm add chi tiết hóa đơn ,add từng mặt hàng trong list mặt hàng vào bảng chi tiết hóa đơn
                     if (result_add_hoa_don_detail.success == false)
                     {
-                        ModelState.AddModelError("", result_add_hoa_don_detail.message);
+                        ModelState.AddModelError("", result_add_hoa_don_detail.message); // không add được thì hiển thị lỗi
                         AddViewBagForUpsert();
                         return View();
                     }
@@ -218,10 +220,10 @@ namespace MiniShop.Controllers
         }
         public IActionResult GetDetail(string id)
         {
-            var parameter = new DynamicParameters();
+            var parameter = new DynamicParameters(); // tạo parameter lưu thông tin
             parameter.Add("@MAHD", id);
-            var result = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.GETDETAIL,parameter);
-            if(result.success && result.message.Length >20)
+            var result = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.GETDETAIL,parameter); // gọi procedure getdetail để lấy dữ liệu chi tiết của một mã hóa đơn
+            if(result.success && result.message.Length >20) 
             {
                 return Content(result.message, "application/json");
             }
@@ -250,7 +252,7 @@ namespace MiniShop.Controllers
             var listproduct_update = newProductList.Select(x => new Product { productId = x.productid, productQuantity = x.productQuantity }).ToList();
             return listproduct_update;
         }
-        public List<string> Check_Quantity_Upper_Zero(int [] quantity)
+        public List<string> Get_Quantity_Equal_Zero(int [] quantity)
         {
             List<string> STT= new List<string>();
             for(int i=0;i<quantity.Length;i++)
@@ -262,15 +264,27 @@ namespace MiniShop.Controllers
             }
             return STT;
         }
+        public List<string> Get_Product_Null(string[] product)
+        {
+            List<string> STT = new List<string>();
+            for (int i = 0; i < product.Length; i++)
+            {
+                if (product[i] == null)
+                {
+                    STT.Add((i + 1).ToString());
+                }
+            }
+            return STT;
+        }
         public List<Product> CHECK_ENOUGH_QUANTITY_PRODUCT(string[] product ,int[] quantity)
         {
             List<Product> listproducts = new List<Product>();
             for (int i = 0; i < product.Length; i++)
             {
-                var parameter_check = new DynamicParameters();
+                var parameter_check = new DynamicParameters(); // tạo parameter lưu thông tin
                 parameter_check.Add("@MAMH", product[i]);
                 parameter_check.Add("@SOLUONG", quantity[i]);
-                var result_check = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.CHECK_ENOUGH_QUANTITY_PRODUCT, parameter_check);
+                var result_check = _unitOfWork.SP_Call.Excute(SD.Hoa_Don.CHECK_ENOUGH_QUANTITY_PRODUCT, parameter_check); // gọi hàm kiểm tra có đủ số lượng sản phẩm để lập hóa đơn không
                 if (result_check.success)
                 {
                     var objstring = result_check.message;

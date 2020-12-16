@@ -25,7 +25,7 @@ namespace MiniShop.Controllers
         }
         public IActionResult GetAll()
         {
-            var result = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.GET_ALL);
+            var result = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.GET_ALL); // gọi hàm lấy danh sách mã giảm giá
             if (result.success)
             {
                 return Content(result.message, "application/json");
@@ -88,44 +88,46 @@ namespace MiniShop.Controllers
         }
         [HttpPost]
         public IActionResult Upsert(MagiamgiaViewModel vm)
-        {
-            
-            if(ModelState.IsValid)
+        { // đầu vào là name của các "Đối tượng html" trong view Upserts muốn truyền cho HttpPost để upload dữ liệu lên cho server
+
+            if (ModelState.IsValid) // nếu các trường nhập vào cho view Upsert không bị sai quy tắc
             {
-                var parameter = new DynamicParameters();
-                parameter.Add("@MAGG", vm.Id);
-                var result = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.IS_EXIST, parameter).message;
-                result = result.Substring(8, result.Length - 9);
-                var obj = JArray.Parse(result);
-                var isExist = obj[0]["IS_EXIST"].ToString();
-                parameter.Add("@TEN", vm.Name);
+                var parameter = new DynamicParameters(); // tạo 1 dynamic parameters để lưu các tham số truyền vào
+                parameter.Add("@MAGG", vm.Id); // dùng hàm add để thêm tham số truyền vào cho parameter
+                var result = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.IS_EXIST, parameter).message; // hàm kiểm tra mã giảm giá còn tồn tại không
+                // _unitOfWork.Sp_Call.Excute là hàm excute 1 hàm SQL, với đầu vào gồm 2 biến(biến thứ nhất kiểu string là tên stored procedure,
+                //  biến thứ 2 kiểu Dynamic Parameters là tham số truyền vào cho stored procedure)
+                result = result.Substring(8, result.Length - 9); // loại bỏ chữ data ở đầu 
+                var obj = JArray.Parse(result); // biến result thành dạng Jarray(mảng Json)
+                var isExist = obj[0]["IS_EXIST"].ToString(); // truy xuất vào phần tử thứ 0 cột is _exist
+                parameter.Add("@TEN", vm.Name); // các properties của view model Vm được truyền vào, đem gán cho parameter 
                 parameter.Add("@NGAYBD", vm.DateStart);
                 parameter.Add("@NGAYKT", vm.DateEnd);
                 parameter.Add("@PT_GIAM", vm.Percent);
                 parameter.Add("@TIENGIAM", vm.MaxDisCount);
                 parameter.Add("@LANSUDUNGMAX", vm.MaxTimeUse);
-                if (isExist != "1")
+                if (isExist != "1")  // nếu mã giảm giá  không tồn tại
                 {
                     //add 
                     
-                    var res = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.CREATE, parameter);
-                    if(res.success)
+                    var res = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.CREATE, parameter); // add thông tin mã giảm giá đó vào bảng Giảm Giá
+                    if(res.success) // nếu add thành công
                     {
                        
-                        return RedirectToAction("index");
+                        return RedirectToAction("index"); // quay về view của action Index
                     }
-                    ModelState.AddModelError("", res.message);
+                    ModelState.AddModelError("", res.message); // nếu không add thành công thì in ra lỗi
 
                 }
-                else
+                else // nếu mã giảm gía đã  tồn tại
                 {
-                    //add update
-                    var res = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.UPDATE, parameter);
-                    if (res.success)
+                    //update mã giảm giá đó 
+                    var res = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.UPDATE, parameter); // gọi hàm update, với tham số truyền vào là parameter ở trên
+                    if (res.success) // nếu add thành công
                     {
-                        return RedirectToAction("index");
+                        return RedirectToAction("index");// quay về view của action Index
                     }
-                    ModelState.AddModelError("", res.message);
+                    ModelState.AddModelError("", res.message); // nếu không add thành công thì in ra lỗi
 
                 }
 
@@ -136,9 +138,9 @@ namespace MiniShop.Controllers
         }
         public IActionResult Get(string id)
         {
-            var parameter = new DynamicParameters();
+            var parameter = new DynamicParameters(); // tạo parameter lưu thông tin
             parameter.Add("@MAGG", id);
-            var result = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.GET, parameter);
+            var result = _unitOfWork.SP_Call.Excute(SD.Giam_Gia.GET, parameter); // gọi procedure lấy thông tin của mã giảm giá
             if (result.success)
             {
                 return Content(result.message, "application/json");
