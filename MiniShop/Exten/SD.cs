@@ -17,6 +17,11 @@ namespace MiniShop.Exten
             public static string THONG_KE_10_NHAN_VIEN_DOANH_THU_CAO_NHAT = "THONG_KE_10_NHAN_VIEN_DOANH_THU_CAO_NHAT";
             public static string THONG_KE_10_SAN_PHAM_MUA_NHIEU_NHAT = "THONG_KE_10_SAN_PHAM_MUA_NHIEU_NHAT";
             public static string DOANH_THU_10_THANG_GAN_NHAT = "DOANH_THU_10_THANG_GAN_NHAT";
+            public static string COUNT_NHAN_VIEN = "COUNT_NHAN_VIEN";
+            public static string COUNT_KHACH_HANG = "COUNT_KHACH_HANG";
+            public static string COUNT_HOA_DON = "COUNT_HOA_DON";
+            public static string SUM_HOA_DON = "SUM_HOA_DON";
+
 
         }
 

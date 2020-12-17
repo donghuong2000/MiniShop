@@ -24,6 +24,11 @@ namespace MiniShop.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.numNV = SLNV();
+            ViewBag.numKH = SLKH();
+            ViewBag.numHD = SLHD();
+            ViewBag.tongHD =tongHD();
+
             return View();
         }
 
@@ -128,6 +133,49 @@ namespace MiniShop.Controllers
             return NotFound();
         }
 
-
+        public int SLNV()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.COUNT_NHAN_VIEN);
+            if (result.success)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                return int.Parse(objstring);     
+            }
+            return 0;
+        }
+        public int SLKH()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.COUNT_KHACH_HANG);
+            if (result.success)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                return int.Parse(objstring);
+            }
+            return 0;
+        }
+        public int SLHD()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.COUNT_HOA_DON);
+            if (result.success)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                return int.Parse(objstring);
+            }
+            return 0;
+        }
+        public double tongHD()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.SUM_HOA_DON);
+            if (result.success)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                return double.Parse(objstring);
+            }
+            return 0;
+        }
     }
 }
