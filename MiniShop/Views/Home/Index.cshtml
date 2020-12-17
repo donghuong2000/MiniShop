@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Trang chủ</h1>
-        
+
     </div>
     <!-- Page Heading -->
     <!-- Content Row -->
@@ -89,11 +89,19 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Thống kê doanh thu</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Thống kê doanh thu 10 ngày gần nhất</h6>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="asss" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="asss">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" onclick=ajax_areachart('/home/dt10day',0)>Thống kê doanh thu 10 ngày gần nhất</a>
+                            <a class="dropdown-item" onclick=ajax_areachart('/home/dt10day',0)>Thống kê doanh thu 10 tuần gần nhất</a>
+                            <a class="dropdown-item" onclick=ajax_areachart('/home/dt10day',0)>Thống kê doanh thu 12 tháng gần nhất</a>
+
+                        </div>
                     </div>
                 </div>
                 <!-- Card Body -->
@@ -104,19 +112,48 @@
                 </div>
             </div>
         </div>
+        <!-- Area Chart -->
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 id="texx" class="m-0 font-weight-bold text-primary">Thống kê 10 khách hàng mua nhiều nhất</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" onclick=ajax_chart('/home/DT10KHMNN',0)>Thống kê 10 khách hàng mua nhiều nhất</a>
+                            <a class="dropdown-item" onclick=ajax_chart('/home/TK10NVCDTCN',0)>Thống kê 10 nhân viên có doanh số cap nhất</a>
+                            <a class="dropdown-item" onclick=ajax_chart('/home/TK10SPMNN',0)>Thống kê 10 sản phẩm bán chạy nhất</a>
 
-        
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 
 
 </div>
-@section Scripts{ 
+@section Scripts{
 
     <!-- Page level plugins -->
     <script src="~/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="~/js/demo/chart-area-demo.js"></script>
-    
+
+    <script src="~/js/demo/chart-bar-demo.js"></script>
 }

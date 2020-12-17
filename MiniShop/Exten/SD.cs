@@ -12,7 +12,10 @@ namespace MiniShop.Exten
         public static class Thong_ke
         {
             public static string DOANH_THU_THANG = "THONG_KE_DOANH_THU_THANG";
-            public static string DOANH_THU_10_NGAY_GAN_NHAT = "DOANH_THU_10_NGAY_GAN_NHAT";
+            public static string DOANH_THU_10_NGAY_GAN_NHAT = "DOANH_THU_10_NGAY_GAN_NHAT"; 
+            public static string THONG_KE_10_KHACH_HANG_MUA_NHIEU_NHAT = "THONG_KE_10_KHACH_HANG_MUA_NHIEU_NHAT";
+            public static string THONG_KE_10_NHAN_VIEN_DOANH_THU_CAO_NHAT = "THONG_KE_10_NHAN_VIEN_DOANH_THU_CAO_NHAT";
+            public static string THONG_KE_10_SAN_PHAM_MUA_NHIEU_NHAT = "THONG_KE_10_SAN_PHAM_MUA_NHIEU_NHAT";
 
         }
 

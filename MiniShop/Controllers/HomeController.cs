@@ -64,6 +64,53 @@ namespace MiniShop.Controllers
             }
             return NotFound();
         }
+        public IActionResult DT10KHMNN()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.THONG_KE_10_KHACH_HANG_MUA_NHIEU_NHAT);
+            if (result.success && result.message.Length > 20)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                var obj = JArray.Parse(objstring);
+                var labels = obj.Select(x => x["TENKH"].ToString()).ToArray();
+                var values = obj.Select(x => float.Parse(x["TONG"].ToString())).ToArray();
+                // 
+                return Json(new { labels, values });
+            }
+            return NotFound();
+        }
+        public IActionResult TK10NVCDTCN()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.THONG_KE_10_NHAN_VIEN_DOANH_THU_CAO_NHAT);
+            if (result.success && result.message.Length > 20)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                var obj = JArray.Parse(objstring);
+                var labels = obj.Select(x => x["TENNV"].ToString()).ToArray();
+                var values = obj.Select(x => float.Parse(x["SOLUONGDONG"].ToString())).ToArray();
+                var values1 = obj.Select(x => float.Parse(x["TONGTIEN"].ToString())).ToArray();
+                // 
+                return Json(new { labels, values,values1 });
+            }
+            return NotFound();
+        }
+        public IActionResult TK10SPMNN()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.THONG_KE_10_SAN_PHAM_MUA_NHIEU_NHAT);
+            if (result.success && result.message.Length > 20)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                var obj = JArray.Parse(objstring);
+                var labels = obj.Select(x => x["TENMH"].ToString()).ToArray();
+                var values = obj.Select(x => float.Parse(x["SL"].ToString())).ToArray();
+
+                // 
+                return Json(new { labels, values });
+            }
+            return NotFound();
+        }
 
 
 

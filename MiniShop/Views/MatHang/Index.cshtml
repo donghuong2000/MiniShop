@@ -39,7 +39,7 @@
 
     <!-- pop up update-->
     <div class="modal  fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="EditModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="EditModalLabel">Chỉnh sửa Nhân viên</h5>
@@ -48,9 +48,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form asp-action="Create">
+                    <form onsubmit="return false">
                         <div class="row align-items-center">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div hidden class="form-group">
+                                <label>Mã Mặt Hàng</label>
+                                <input type="text" class="form-control" id="aa" />
+                            </div>
                             <div class="form-group">
                                 <label>Mã Mặt Hàng</label>
                                 <input type="text" class="form-control" id="a" />
@@ -73,9 +77,9 @@
                             </div>
                             <div class="form-group">
                                 <label>Loại Mặt Hàng</label>
-                                <select asp-items="ViewBag.PhanLoaiList" class="form-control" name="e"></select>
+                                <select asp-items="ViewBag.PhanLoaiList" class="form-control" id="e"></select>
                             </div>
-                            <input value="Khởi Tạo" class="btn btn-outline-secondary form-control" />
+                            <input id="updateform" value="Cập nhập" data-dismiss="modal" class="btn btn-outline-secondary form-control" />
                         </div>
                     </form>
                 </div>

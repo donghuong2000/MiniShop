@@ -78,9 +78,22 @@ namespace MiniShop.Controllers
             ModelState.AddModelError("", result.message);
             return View();
         }
-        public IActionResult Update()
+        public IActionResult Update(string a, string b, string c, string d, string e, string f, string aa)
         {
-            return View();
+            var parameter = new DynamicParameters();
+            parameter.Add("@MA_MH_OLD", aa);
+            parameter.Add("@MA_MH_NEW", a);
+            parameter.Add("@TEN_MH", b);
+            parameter.Add("@NGAYSX", c);
+            parameter.Add("@HANSD", d);
+            parameter.Add("@LOAIMH", e);
+            parameter.Add("@GIA", f);
+            var result = _unitOfWork.SP_Call.Excute(SD.Mat_Hang.UPDATE, parameter);
+            if (result.success)
+            {
+                return Json(new { success = true, message = "Update thành công sản phẩm" });
+            }
+            return Json(new { success = false, message = result.message });
         }
 
 

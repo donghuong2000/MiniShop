@@ -1,4 +1,4 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
+﻿// Set new default font family and font color to mimic Bootstrap's default styling
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
@@ -32,14 +32,18 @@ var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: [],
     datasets: [{
-      label: "Revenue",
+      label: "Giá trị : ",
       backgroundColor: "#4e73df",
       hoverBackgroundColor: "#2e59d9",
       borderColor: "#4e73df",
-      data: [4215, 5312, 6251, 7841, 9821, 14984],
-    }],
+      data: []
+        }
+       
+
+
+      ],
   },
   options: {
     maintainAspectRatio: false,
@@ -54,7 +58,7 @@ var myBarChart = new Chart(ctx, {
     scales: {
       xAxes: [{
         time: {
-          unit: 'month'
+          unit: 'name'
         },
         gridLines: {
           display: false,
@@ -67,13 +71,11 @@ var myBarChart = new Chart(ctx, {
       }],
       yAxes: [{
         ticks: {
-          min: 0,
-          max: 15000,
           maxTicksLimit: 5,
           padding: 10,
           // Include a dollar sign in the ticks
           callback: function(value, index, values) {
-            return '$' + number_format(value);
+            return  number_format(value);
           }
         },
         gridLines: {
@@ -103,9 +105,37 @@ var myBarChart = new Chart(ctx, {
       callbacks: {
         label: function(tooltipItem, chart) {
           var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-          return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+          return datasetLabel   + number_format(tooltipItem.yLabel);
         }
       }
     },
   }
 });
+$(document).ready(function () {
+    ajax_chart('/home/DT10KHMNN', 0); // gọi thống kê mặc khi khi mở web
+})
+
+function ajax_chart(url, data) { // gọi hàm thống kê : url là đường dẫn, data là đầu vào (optional) ví dụ theo tháng, năm 
+
+    $.getJSON(url, data).done(function (response) {
+        if (url == '/home/TK10SPMNN') {
+            myBarChart.data.labels = response.labels; // label là hàng ngang, các tiêu đề, ví du : tháng 1,tháng 2,....
+            myBarChart.data.datasets[0].data = response.values; // value là giá trị tương ứng cho từng tiêu đề...
+            $('#texx').text('Thống kê 10 sản phẩm bán chạy nhất')
+        }
+        if (url == '/home/DT10KHMNN') {
+            myBarChart.data.labels = response.labels; // label là hàng ngang, các tiêu đề, ví du : tháng 1,tháng 2,....
+            myBarChart.data.datasets[0].data = response.values; // value là giá trị tương ứng cho từng tiêu đề...
+            $('#texx').text('Thống kê 10 khách hàng mua nhiều nhất')
+        }
+        if (url == '/home/TK10NVCDTCN') {
+            myBarChart.data.labels = response.labels; // label là hàng ngang, các tiêu đề, ví du : tháng 1,tháng 2,....
+            myBarChart.data.datasets[0].data = response.values1;
+            console.log(myBarChart.data.datasets)
+            //myBarChart.data.datasets[1].data = response.values1;// value là giá trị tương ứng cho từng tiêu đề...
+            $('#texx').text('Thống kê 10 nhân viên có doanh thu cao nhất')
+        }
+        // mylinechart là cái bảng chart của mình
+        myBarChart.update(); 
+    });
+}

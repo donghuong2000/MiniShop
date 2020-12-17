@@ -118,10 +118,10 @@ var myLineChart = new Chart(ctx, {
 });
 
 $(document).ready(function () {
-    ajax_chart('/home/dt10day',0); // gọi thống kê mặc khi khi mở web
+    ajax_areachart('/home/dt10day',0); // gọi thống kê mặc khi khi mở web
 })
 
-function ajax_chart(url,data) { // gọi hàm thống kê : url là đường dẫn, data là đầu vào (optional) ví dụ theo tháng, năm 
+function ajax_areachart(url,data) { // gọi hàm thống kê : url là đường dẫn, data là đầu vào (optional) ví dụ theo tháng, năm 
    
     $.getJSON(url, data).done(function (response) {
 

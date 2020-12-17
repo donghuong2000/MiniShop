@@ -99,20 +99,18 @@ $('#EditModal').on('show.bs.modal', function (event) {
     var modal = $(this)
     $.ajax({
         method: 'GET',
-        url: '/nhanvien/get/' + idname,
+        url: '/mathang/get/' + idname,
         success: function (data) {
            
-            modal.find('#ma_nhan_vien').val(data.data[0].MANV)
-            modal.find('#ma_nhan_vien_old').val(data.data[0].MANV)
-            modal.find('#ten_nhan_vien').val(data.data[0].TENNV)
-            modal.find('#ngay_sinh').val(data.data[0].NGAYSINH)
-            modal.find('#gioi_tinh').val(data.data[0].GIOITINH)
-            modal.find('#cmnd').val(data.data[0].CMND)
-            modal.find('#sdt').val(data.data[0].SDT)
-            modal.find('#chuc_vu').val(data.data[0].CHUCVU)
-            modal.find('#ngay_lam_viec').val(data.data[0].NGAYLAMVIEC)
-            modal.find('#dia_chi').val(data.data[0].DIACHI)
-            modal.find('#user_name').val(data.data[0].USERNAME)
+            modal.find('#aa').val(data.data[0].MAMH)
+            modal.find('#a').val(data.data[0].MAMH)
+            modal.find('#b').val(data.data[0].TENMH)
+            modal.find('#c').val(data.data[0].NGAYSX)
+            modal.find('#d').val(data.data[0].HANSD)
+            modal.find('#f').val(data.data[0].GIA)
+            modal.find('#e').val(data.data[0].LOAI)
+           
+           
         }
     })
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -121,20 +119,18 @@ $('#EditModal').on('show.bs.modal', function (event) {
 })
 
 $('#updateform').click(function () {
-    var a = $('#ma_nhan_vien').val()
-    var b = $('#ma_nhan_vien_old').val()
-    var c = $('#ten_nhan_vien').val()
-    var d = $('#ngay_sinh').val()
-    var e = $('#gioi_tinh').val()
-    var f = $('#cmnd').val()
-    var g = $('#sdt').val()
-    var h = $('#chuc_vu').val()
-    var k = $('#dia_chi').val()
-    var l = $('#user_name').val()
+    var a = $('#a').val()
+    var aa = $('#aa').val()
+    var b = $('#b').val()
+    var c = $('#d').val()
+    var d = $('#d').val()
+    var e = $('#e').val()
+    var f = $('#f').val()
+   
     $.ajax({
         method: 'POST',
-        data: {a:a,b:b,c:c,d:d,e:e,f:f,g:g,h:h,k:k,l:l},
-        url: '/nhanvien/update/',
+        data: {a:a,b:b,c:c,d:d,e:e,f:f,aa:aa},
+        url: '/mathang/update/',
         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (data) {
             if (data.success) {
