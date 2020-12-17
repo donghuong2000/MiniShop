@@ -123,12 +123,20 @@ $(document).ready(function () {
 
 function ajax_areachart(url,data) { // gọi hàm thống kê : url là đường dẫn, data là đầu vào (optional) ví dụ theo tháng, năm 
    
-    $.getJSON(url, data).done(function (response) {
+    $.getJSON(url).done(function (response) {
 
         // mylinechart là cái bảng chart của mình
         myLineChart.data.labels = response.labels; // label là hàng ngang, các tiêu đề, ví du : tháng 1,tháng 2,....
         myLineChart.data.datasets[0].data = response.values; // value là giá trị tương ứng cho từng tiêu đề...
+        $('#tess').text(data);
         myLineChart.update(); // update lại chart
+        if (data == 0) {
+            $('#tess').text('Thống kê doanh thu 10 ngày gần nhất');
+        }
+        else {
+            $('#tess').text('Thống kê doanh thu 10 tháng gần nhất');
+        }
+        
     });
 }
 
