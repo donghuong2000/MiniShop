@@ -24,6 +24,11 @@ namespace MiniShop.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.numNV = SLNV();
+            ViewBag.numKH = SLKH();
+            ViewBag.numHD = SLHD();
+            ViewBag.tongHD =tongHD();
+
             return View();
         }
 
@@ -64,9 +69,113 @@ namespace MiniShop.Controllers
             }
             return NotFound();
         }
+       
+        public IActionResult DT10MONTH()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.DOANH_THU_10_THANG_GAN_NHAT);
+            if (result.success && result.message.Length > 20)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                var obj = JArray.Parse(objstring);
+                var labels = obj.Select(x =>"Tháng "+x["MONTH"].ToString()).ToArray();
+                var values = obj.Select(x => float.Parse(x["TONG"].ToString())).ToArray();
+                // 
+                return Json(new { labels, values });
+            }
+            return NotFound();
+        }
+        public IActionResult DT10KHMNN()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.THONG_KE_10_KHACH_HANG_MUA_NHIEU_NHAT);
+            if (result.success && result.message.Length > 20)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                var obj = JArray.Parse(objstring);
+                var labels = obj.Select(x => x["TENKH"].ToString()).ToArray();
+                var values = obj.Select(x => float.Parse(x["TONG"].ToString())).ToArray();
+                // 
+                return Json(new { labels, values });
+            }
+            return NotFound();
+        }
+        public IActionResult TK10NVCDTCN()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.THONG_KE_10_NHAN_VIEN_DOANH_THU_CAO_NHAT);
+            if (result.success && result.message.Length > 20)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                var obj = JArray.Parse(objstring);
+                var labels = obj.Select(x => x["TENNV"].ToString()).ToArray();
+                var values = obj.Select(x => float.Parse(x["SOLUONGDONG"].ToString())).ToArray();
+                var values1 = obj.Select(x => float.Parse(x["TONGTIEN"].ToString())).ToArray();
+                // 
+                return Json(new { labels, values,values1 });
+            }
+            return NotFound();
+        }
+        public IActionResult TK10SPMNN()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.THONG_KE_10_SAN_PHAM_MUA_NHIEU_NHAT);
+            if (result.success && result.message.Length > 20)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                var obj = JArray.Parse(objstring);
+                var labels = obj.Select(x => x["TENMH"].ToString()).ToArray();
+                var values = obj.Select(x => float.Parse(x["SL"].ToString())).ToArray();
 
+                // 
+                return Json(new { labels, values });
+            }
+            return NotFound();
+        }
 
-
-
+        public int SLNV()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.COUNT_NHAN_VIEN);
+            if (result.success)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                return int.Parse(objstring);     
+            }
+            return 0;
+        }
+        public int SLKH()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.COUNT_KHACH_HANG);
+            if (result.success)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                return int.Parse(objstring);
+            }
+            return 0;
+        }
+        public int SLHD()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.COUNT_HOA_DON);
+            if (result.success)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                return int.Parse(objstring);
+            }
+            return 0;
+        }
+        public double tongHD()
+        {
+            var result = _unitOfWork.SP_Call.Excute(SD.Thong_ke.SUM_HOA_DON);
+            if (result.success)
+            {
+                var objstring = result.message;
+                objstring = objstring.Substring(8, objstring.Length - 9);
+                return double.Parse(objstring);
+            }
+            return 0;
+        }
     }
 }

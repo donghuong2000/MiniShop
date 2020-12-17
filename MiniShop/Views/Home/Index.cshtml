@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Trang chủ</h1>
-        
+
     </div>
     <!-- Page Heading -->
     <!-- Content Row -->
@@ -17,8 +17,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Doanh thu (Tháng)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">VND 40,000</div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Doanh thu (Tất cả)</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.tongHD VND</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -34,8 +34,8 @@
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Doanh thu (Năm)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Số lượng hóa đơn</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.numHD</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -52,7 +52,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Số lượng nhân viên</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.numNV</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -69,7 +69,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Số lượng khách hàng</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">180</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.numKH</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -89,11 +89,18 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Thống kê doanh thu</h6>
+                    <h6 id="tess" class="m-0 font-weight-bold text-primary">Thống kê doanh thu 10 ngày gần nhất</h6>
                     <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle" href="#" role="button" id="asss" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="asss">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" onclick=ajax_areachart('/home/dt10day',0) >Thống kê doanh thu 10 ngày gần nhất</a>
+                            <a class="dropdown-item" onclick=ajax_areachart('/home/DT10MONTH',1)>Thống kê doanh thu 10 tháng gần nhất</a>
+
+                        </div>
                     </div>
                 </div>
                 <!-- Card Body -->
@@ -104,19 +111,48 @@
                 </div>
             </div>
         </div>
+        <!-- Area Chart -->
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 id="texx" class="m-0 font-weight-bold text-primary">Thống kê 10 khách hàng mua nhiều nhất</h6>
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Dropdown Header:</div>
+                            <a class="dropdown-item" onclick=ajax_chart('/home/DT10KHMNN',0)>Thống kê 10 khách hàng mua nhiều nhất</a>
+                            <a class="dropdown-item" onclick=ajax_chart('/home/TK10NVCDTCN',0)>Thống kê 10 nhân viên có doanh số cap nhất</a>
+                            <a class="dropdown-item" onclick=ajax_chart('/home/TK10SPMNN',0)>Thống kê 10 sản phẩm bán chạy nhất</a>
 
-        
+                        </div>
+                    </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-area">
+                        <canvas id="myBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 
 
 </div>
-@section Scripts{ 
+@section Scripts{
 
     <!-- Page level plugins -->
     <script src="~/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="~/js/demo/chart-area-demo.js"></script>
-    
+
+    <script src="~/js/demo/chart-bar-demo.js"></script>
 }
