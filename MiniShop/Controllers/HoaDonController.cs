@@ -130,7 +130,11 @@ namespace MiniShop.Controllers
         }
         [HttpPost]
         public IActionResult Upsert(string ma_hoa_don, string khach_hang, string nhan_vien,  string ngay_lap_hoa_don,string total_amount,string discount ,string[] product, int[] qty)
-        { // đầu vào là name của các "Đối tượng html" trong view Upserts muốn truyền cho HttpPost để upload dữ liệu lên cho server
+        { 
+            
+            
+            
+            // đầu vào là name của các "Đối tượng html" trong view Upserts muốn truyền cho HttpPost để upload dữ liệu lên cho server
             var stt_quantity_zero = Get_Quantity_Equal_Zero(qty); // gọi hàm kiểm tra xem có mặt hàng nào trong hóa đơn có số lượng = 0 không
             var stt_product_null = Get_Product_Null(product); // gọi hàm kiểm tra xem có mặt hàng nào chưa chọn tên mặt hàng không ?
             List<Product> list_check_quantity = new List<Product>();

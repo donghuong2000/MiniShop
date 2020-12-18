@@ -11,18 +11,13 @@ namespace MiniShop.Repository
 {
     public class SP_Call : ISP_Call
     {
-
-
         public static string ConnectionString = "Server=.;Database=NHOM3;Trusted_Connection=True;";
-
         public SP_Call()
         {
 
         }
-
         public void Dispose()
         {
-
         }
         public (bool success,string message) Excute(string proceduceName, DynamicParameters param = null)
         {
@@ -52,7 +47,6 @@ namespace MiniShop.Repository
                 }
             }
         }
-
         public bool Login(string username,string password)
         {
             var newConnnect = "Server=.;Database=Nhom3;User Id=" + username + ";Password=" + password + ";";
