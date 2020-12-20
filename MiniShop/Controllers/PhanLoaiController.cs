@@ -100,7 +100,7 @@ namespace MiniShop.Controllers
         public IActionResult Delete(string id)
         {
             var parameter = new DynamicParameters(); // parameter 
-            parameter.Add("@MA_PHAN_LOAI", id);
+            parameter.Add("@MA_PL", id);
             var result = _unitOfWork.SP_Call.Excute(SD.Phan_Loai.DELETE, parameter); // gọi stored procedures xóa phân loại
             if (result.success)
             {

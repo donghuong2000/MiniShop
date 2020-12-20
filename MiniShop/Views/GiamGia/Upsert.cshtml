@@ -2,13 +2,23 @@
 @{
     ViewData["Title"] = "Upsert";
 }
+@if (Model.Id == null)
+{
+    <h2>Tạo mã giảm giá</h2>
+}
+else
+{
+    <h2>Chỉnh sửa mã giảm giá</h2>
+}
 
-<h2>Tạo mã giảm giá</h2>
+
+
+
 <form asp-action="Upsert" class="mx-5">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row justify-content-center">
         <div class="col-md-6">
-            
+
             <div class="form-group">
                 <label>Mã Giảm Giá</label>
                 @if (ViewBag.Id == "")
@@ -46,8 +56,15 @@
                 <input type="number" class="form-control" asp-for="MaxTimeUse" />
             </div>
         </div>
-        
-        <input type="submit" value="Khởi Tạo" class="btn btn-outline-secondary form-control" />
+        @if (Model.Id == null)
+        {
+            <input type="submit" value="Khởi Tạo" class="btn btn-outline-secondary form-control" />
+        }
+        else
+        {
+            <input type="submit" value="Cập nhật" class="btn btn-outline-secondary form-control" />
+        }
+
 
     </div>
 </form>

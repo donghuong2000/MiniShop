@@ -80,6 +80,7 @@ namespace MiniShop.Controllers
             ModelState.AddModelError("", result.message); // nếu hàm không thực thi thành công thì gán lỗi cho model error và show lên màn hình
             return View();
         }
+        [HttpPost]
         public IActionResult Update(string a, string b, string c, string d, string e, string f, string aa)
         {
             var parameter = new DynamicParameters();
@@ -97,27 +98,27 @@ namespace MiniShop.Controllers
             }
             return Json(new { success = false, message = result.message });
         }
-        [HttpPost]
-        public IActionResult Update(string a, string b, string c, string d, string e, string f, string g, string h, string k, string l)
-        {
+       
+        //public IActionResult Update(string a, string b, string c, string d, string e, string f, string g, string h, string k, string l)
+        //{
 
-            var parameter = new DynamicParameters(); // tạo parameter lưu thông tin
-            parameter.Add("@MANV", a);
-            parameter.Add("@TENNV", c);
-            parameter.Add("@GIOITINH", e);
-            parameter.Add("@NGAYSINH", d);
-            parameter.Add("@NGAYLAMVIEC", b);
-            parameter.Add("@CMND", f);
-            parameter.Add("@SDT", g);
-            parameter.Add("@DIACHI", k);
-            parameter.Add("@CHUCVU", h);
-            var result = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.UPDATE, parameter); // gọi stored procedure update Nhân Viên
-            if (result.success)
-            {
-                return Json(new { success = true, message = "đã sửa thành công" });
-            }
-            return Json(new { success = false, message = result.message });
-        }
+        //    var parameter = new DynamicParameters(); // tạo parameter lưu thông tin
+        //    parameter.Add("@MANV", a);
+        //    parameter.Add("@TENNV", c);
+        //    parameter.Add("@GIOITINH", e);
+        //    parameter.Add("@NGAYSINH", d);
+        //    parameter.Add("@NGAYLAMVIEC", b);
+        //    parameter.Add("@CMND", f);
+        //    parameter.Add("@SDT", g);
+        //    parameter.Add("@DIACHI", k);
+        //    parameter.Add("@CHUCVU", h);
+        //    var result = _unitOfWork.SP_Call.Excute(SD.Nhan_Vien.UPDATE, parameter); // gọi stored procedure update Nhân Viên
+        //    if (result.success)
+        //    {
+        //        return Json(new { success = true, message = "đã sửa thành công" });
+        //    }
+        //    return Json(new { success = false, message = result.message });
+        //}
 
 
         [HttpDelete]
