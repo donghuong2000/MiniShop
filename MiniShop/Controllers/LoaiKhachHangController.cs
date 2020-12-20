@@ -9,7 +9,7 @@ using MiniShop.Repository.IRepository;
 
 namespace MiniShop.Controllers
 {
-    public class LoaiKhachHangController : BaseController
+    public class LoaiKhachHangController : BaseHomeController
     {
         private readonly IUnitOfWork _unitOfWork;
         public LoaiKhachHangController(IUnitOfWork unitOfWork)

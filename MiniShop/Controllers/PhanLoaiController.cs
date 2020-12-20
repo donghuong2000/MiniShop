@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace MiniShop.Controllers
 {
-    public class PhanLoaiController : Controller
+    public class PhanLoaiController : BaseHomeController
     {
         private readonly IUnitOfWork _unitOfWork;
         public PhanLoaiController(IUnitOfWork unitOfWork)

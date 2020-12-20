@@ -9,7 +9,7 @@ using MiniShop.Repository.IRepository;
 
 namespace MiniShop.Controllers
 {
-    public class KhoController : Controller
+    public class KhoController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         public KhoController(IUnitOfWork unitOfWork)

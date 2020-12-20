@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace MiniShop.Controllers
 {
-    public class DonNhapHangController : Controller
+    public class DonNhapHangController : BaseHomeController
     {
 
         private readonly IUnitOfWork _unitOfWork;

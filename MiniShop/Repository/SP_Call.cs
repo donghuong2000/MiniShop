@@ -70,7 +70,7 @@ namespace MiniShop.Repository
                     r = "{\"data\":" + r + "}";
                     return true ;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
 
                     return false;

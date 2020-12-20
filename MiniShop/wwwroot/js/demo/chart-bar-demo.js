@@ -112,7 +112,7 @@ var myBarChart = new Chart(ctx, {
   }
 });
 $(document).ready(function () {
-    ajax_chart('/home/DT10KHMNN', 0); // gọi thống kê mặc khi khi mở web
+    ajax_chart('/home/DT10KHMNN', 2002); // gọi thống kê mặc khi khi mở web
 })
 
 function ajax_chart(url, data) { // gọi hàm thống kê : url là đường dẫn, data là đầu vào (optional) ví dụ theo tháng, năm 
